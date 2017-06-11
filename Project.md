@@ -1,24 +1,44 @@
+&nbsp; <p>
+&nbsp; <p>
 # <center> Machine Learning Kaggle Project </center>
 # <center> What's Cooking </center>
-<center> <img src="./pictures/Fig1.png" width="30%" /> </center>
-#### <center> 101021801 Yu-Hsuan Guan  </center>
-#### <center> yhguan8128@gmail.com </center>
-#### <center> NTHU Department of Mathematics</center>
+&nbsp; <p>
+&nbsp; <p>
+&nbsp; <p>
+<center> <img src="./pictures/Fig1.png" width="50%" /> </center>
+&nbsp; <p>
+&nbsp; <p>
+&nbsp; <p>
+&nbsp; <p>
+&nbsp; <p>
+### <center> 101021801 Yu-Hsuan Guan  </center>
+### <center> NTHU Department of Mathematics</center>
+### <center> yhguan8128@gmail.com </center>
 
 <div style="page-break-after: always;"></div>
 
-## Introduction
-### Main problem
-The main issue of this competition is to classify lists of ingredients into correct kinds of cuisines. Each data is originally represented in the format of JSON. 
+## 1. Introduction
+### The main problem
+The main issue of this competition is to classify lists of ingredients into correct kinds of cuisines. There are only two given files ``train.json`` and ``test.json``. Each training instance is represented in this format of JSON.  
 
 ```python
 {
     "id": 10259,
     "cuisine": "greek",
     "ingredients": [ "romaine lettuce", "black olives", "grape tomatoes", "garlic",
-    "pepper", "purple onion", "seasoning", "garbanzo beans", "feta cheese crumbles"]
+    "pepper", "purple onion", "seasoning", "garbanzo beans", "feta cheese crumbles" ]
 }
 ```
+And, each testing instance is represented in the format of JSON.
+
+```python
+{
+	"id": 18009,
+	"ingredients": [ "baking powder", "eggs", "all-purpose flour", 
+	"raisins", "milk", "white sugar" ]
+}
+``` 
+  
 There are totally 20 kinds of cuisines.
 <center>
 
@@ -35,9 +55,10 @@ After an initial step of statistics, some basic summaries about data are given b
 
 | Number of training instances | 39774  |
 | :---: | :---: |
-| **Number of training instances** | **9944** |
-| **Length of longest list of ingregients** | **65** |
-| **Length of shortest list of ingregients** | **1** |
+| **Number of testing instances** | **9944** |
+| **Length of longest list of ingregients in training data** | **65** |
+| **Length of shortest list of ingregients in training data** | **1** |
+| **Total number of ingregients in training data** | **6714** |
 
 </center>
 
@@ -46,8 +67,8 @@ The submission needs to be saved as a csv file of this form.
 
 | id | cuisine |
 | :---: | :---: |
-| 35203 | italian |
-| 17600 | chinese |
+| 18009 | italian |
+| 35203 | chinese |
 | ... | ... |
 
 </center>
@@ -56,14 +77,39 @@ Obviously, this competition is a **supervised problem** of **multi-class classif
 
 * Transform to binary: OvR, OvO* Extend from binary: Naive Bayes, KNN, Decision trees, SVM, Neural networks, ELM* Hierarchical classification
 
-### Formal steps of ML
-* Preprocessing - Training & Evaluation - Testing
-* Structure of this article
+### The main steps of learning
+* Preprocessing(§1) - Training(§2,3) - Evaluating(§4) - Testing(§4)
+* Preprocessing: Data representation in this project
+
+## 2. Related work
+### Top ing. + J48
+* Detailed steps of training
+
+## 3. New methods
+### KNN
+* Detailed steps of training
+
+### PCA + SMO
+* Detailed steps of training
+
+## 4. Comparison results
+### Evaluating
+* Correctness
+* K-fold cross-validation
+* Confusion matrix
+* ROC curve 
+* AUC value
+
+### Testing
+* Detailed steps of testing
+* Score (illustration)
+
+## 5. Discussion and conclusion
+* Why did the new methods work better?
 
 ## Appendix
-### Detailed steps of training and testing
-### Environment of Weka### Special codes
-### All the codes in this project
+### How to use Weka
+### Automatic Weka### All the codes in this project
 https://github.com/alicia6174/Kaggle-Whats-Cooking 
 [code]: https://github.com/alicia6174/Kaggle-Whats-Cooking 
 
@@ -76,3 +122,8 @@ https://github.com/alicia6174/Kaggle-Whats-Cooking
 
 3. 袁梅宇. *王者歸來：WEKA機器學習與大數據聖經 3/e.* 佳魁資訊, 2016.
 [3]: https://www.tenlong.com.tw/products/9789863794578 
+
+<!-- 表格顏色怪怪 -->
+<!-- 確認我跟教授論文的結構是否一樣 Preprocessing(§1) - Train(§2,3) - Evaluating & Testing (§4) -->
+<!-- subsection要編號？ -->
+<!-- 新的section新起一頁？ -->
