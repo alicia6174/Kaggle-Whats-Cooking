@@ -13,7 +13,7 @@
 &nbsp; <p>
 ### <center> 101021801 Yu-Hsuan Guan  </center>
 ### <center> NTHU Department of Mathematics</center>
-### <center> yhguan8128@gmail.com </center>
+### <center> June 28, 2017 </center>
 
 <div style="page-break-after: always;"></div>
 
@@ -78,23 +78,34 @@ Obviously, this competition is a **supervised problem** of **multi-class classif
 * Transform to binary: OvR, OvO* Extend from binary: Naive Bayes, KNN, Decision trees, SVM, Neural networks, ELM* Hierarchical classification
 
 ### The main steps of learning
-* Preprocessing(§1) - Training(§2,3) - Evaluating(§4) - Testing(§4)
-* Preprocessing: Data representation in this project
+* Data analysis/Preprocessing(§1) - Visualization/Dimension reduction & Training & Tuning(§2,3) - Evaluation & (§4)
+* Preprocessing: delete special characters(appendix) -> convert to unitcode(appendix) -> change to 01-vectors -> a matrix of size 9944 x 6714 (training) without missing values -> very large!
 
 ## 2. Related work
 ### Top ing. + J48
-* Detailed steps of training
+* Dimension reduction -> Top ing.
+* Training -> Weka (detailed steps
+* Tuning -> How to choose num. of top ing.?
+* Best: Top 200, S=0.57; Top 1703, S=? 
 
 ## 3. New methods
+<!--
 ### KNN
 * Detailed steps of training
+* Tuning -> How to choose K? 
+* d(id1,id2) = #{ing(id1) \neq ing(id2)}
+* Best: K=21, S=0.67659
+-->
 
 ### PCA + SMO
-* Detailed steps of training
+* Dimension reduction -> PCA, linear unsupervised reduction
+* Training -> Auto Weka + Weka (detailed steps)
+* Tuning -> How to choose num. of PCs? (Score.pdf)
+* Best: PCs 1000, S=0.66020; PCs 1703, S=?
 
 ## 4. Comparison results
-### Evaluating
-* Correctness
+### Evaluation
+* Correctness / Accuracy / Error rate
 * K-fold cross-validation
 * Confusion matrix
 * ROC curve 
@@ -102,16 +113,20 @@ Obviously, this competition is a **supervised problem** of **multi-class classif
 
 ### Testing
 * Detailed steps of testing
-* Score (illustration)
+* Kaggle score (Screen Shot)
 
 ## 5. Discussion and conclusion
 * Why did the new methods work better?
+* Future work: Text mining, Compressed sensing, Factorization Machines (2010), Latent Dirichlet Allocation.
 
 ## Appendix
 ### How to use Weka
-### Automatic Weka### All the codes in this project
-https://github.com/alicia6174/Kaggle-Whats-Cooking 
-[code]: https://github.com/alicia6174/Kaggle-Whats-Cooking 
+### How to use Automatic Weka### Coding
+You can find all the codes in this site.
+[https://github.com/alicia6174/Kaggle-Whats-Cooking] 
+[https://github.com/alicia6174/Kaggle-Whats-Cooking]: https://github.com/alicia6174/Kaggle-Whats-Cooking 
+Please contact this mail if you have any question.
+<yhguan8128@gmail.com>
 
 ## References
 1. P. Hall *et al.* Choice of neighbor order in nearest-neighbor classification. *Ann. Stat.*, 36(5):2135-2152, 2008.
@@ -123,7 +138,8 @@ https://github.com/alicia6174/Kaggle-Whats-Cooking
 3. 袁梅宇. *王者歸來：WEKA機器學習與大數據聖經 3/e.* 佳魁資訊, 2016.
 [3]: https://www.tenlong.com.tw/products/9789863794578 
 
-<!-- 表格顏色怪怪 -->
-<!-- 確認我跟教授論文的結構是否一樣 Preprocessing(§1) - Train(§2,3) - Evaluating & Testing (§4) -->
+<!-- 表格顏色怪怪 -> 考慮用html調整表格與上一行文字之間留白部分 -->
 <!-- subsection要編號？ -->
 <!-- 新的section新起一頁？ -->
+<!-- 目錄, 頁碼, 與插圖？ -->
+<!-- KNN與其他方法資料型態不一樣且沒有evaluation的部分 -> 了解各方法的細節看如何寫比較好且補足需要的部分 -->
