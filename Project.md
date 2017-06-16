@@ -142,9 +142,9 @@ Detailed steps.
  
 * **Modeling** - We converted the csv file into an arff file so that the Weka environment would work more smoothly. We tried several multi-class classifiers for comparison. According to the evaluation (see §4), we saved the best model   **SMO** to make predictions.
 
-* **Prediction** - We repeated the steps of preprocessing and converting files to create the arff file of testing data. Then we used Weka again to predict the result. Finally, we saved the result as a needed submission file and uploaded it on the Kaggle site for scoring.
+* **Prediction** - We repeated the steps of preprocessing and file conversion to create the arff file of testing data. Then we used Weka again to predict the result. Finally, we saved the result as a needed submission file and uploaded it on the Kaggle site for scoring.
 
-* Matrix
+* Matrix???
 ### Detailed steps<center>
 | Coding files \& ML Tools | Created files | Goals |
 | :--- | :--- | :--- |
@@ -171,7 +171,7 @@ The 1001th attribute in the file test\_weka\_top1000.arff needs to be modified t
 $$\textrm{Score}(k) = \frac{\sum_{i=1}^k \lambda_i}{\sum_{i=1}^{6714} \lambda_i}$$
 where $\lambda_i$s are the eigenvalues which satisfy $\lambda_1 \geq \lambda_2 \geq \ldots \geq \lambda_{6714}$. This grapf of score versus number of eigenvalues shows that $1000$ corresponds to the score of $90$.
 <center> <img src="./pictures/Score.pdf" width="80%" /> </center>
-Finally we multiply the training data matrix by this matrix composed of the top $1000$ eigenvectors to obtain the reduced training data matrix.
+Finally we multiplied the training data matrix by this matrix composed of the top $1000$ eigenvectors to obtain the reduced training data matrix. Each feature had been normalized and rounded to the second decimal.
 $$
 \begin{bmatrix}
 \quad & \quad & \quad & \quad \\
@@ -181,24 +181,33 @@ v_1 & v_2 & \ldots & v_{1000}\\
 \quad & \quad & \quad & \quad 
 \end{bmatrix}_{\; 6714 \times 1000}
 $$
-The training data matrix of size $39774 \times 1000$ (without the header and labels) had this form and was saved as a csv file.
+The reduced training data matrix of size $39774 \times 1000$ (without the header and labels) had this form and was saved as a csv file.
 
 <center>
 
 | 1 | 2 | $\ldots\ldots$ | 1000 | cuisine |
 | :---: | :---: | :---: | :---: | :---: |
-| 0 | 0 | $\ldots\ldots$ | 0 | greek |   
-| 1 | 0 | $\ldots\ldots$ | 0 | southern_us |
+| 0.71 | 0.34 | $\ldots\ldots$ | 0.45 | greek |   
+| 0.49 | 0.57 | $\ldots\ldots$ | 0.47 | southern_us |
 | $\vdots$ | $\vdots$ | $\ldots\ldots$ | $\vdots$ | $\vdots$ |
-| 0 | 1 | $\ldots\ldots$ | 1 | mexican |
+| 0.30 | 0.30 | $\ldots\ldots$ | 0.47 | mexican 
 
 </center>
 
-* PCA 1000 PCs (normalized and rounded),  Matrix.
+* **Modeling** - This step was conducted almost in the same way as in the section 2. The main difference was that **SMO** still served as the best model after evaluation (see §4).
 
-* **Modeling** - This step was conducted almost the same as in the section 2. The main difference was that **SMO** still served as the best model after evaluation (see §4).
+* **Prediction** - We conducted the same step of dimension reduction to obtain the reduced testing data matrix. The reduced testing data matrix of size $9944 \times 1000$ (without the header and labels) had this form and was saved as a csv file. The following steps was conducted in the same way as in the section 2.
 
-* **Prediction** - 
+<center>
+
+| 1 | 2 | $\ldots\ldots$ | 1000 | cuisine |
+| :---: | :---: | :---: | :---: | :---: |
+| 0.71 | 0.34 | $\ldots\ldots$ | 0.45 | greek |   
+| 0.49 | 0.57 | $\ldots\ldots$ | 0.47 | southern_us |
+| $\vdots$ | $\vdots$ | $\ldots\ldots$ | $\vdots$ | $\vdots$ |
+| 0.30 | 0.30 | $\ldots\ldots$ | 0.47 | mexican 
+
+</center>
 
 * Matrix
 
