@@ -80,7 +80,7 @@ Obviously, this competition is a **supervised problem** of **multi-class classif
 
 * Transform to binary - OvR (one-against-all), OvO (one-against-one)* Extend from binary - Naive Bayes, KNN (IBk), Decision trees (J48), SVM (SMO), Neural networks (Multilayer Perceptron)
 ### The main steps of learning
-There are five major steps of machine learning in this project.
+There are five major steps of machine learning.
 
 * **Data analysis** - We started with **data preprocessing** by these initial process.
 	* Delete these special characters: ç, è, é, ®, and ™.
@@ -94,7 +94,10 @@ There are five major steps of machine learning in this project.
 
 	The detailed steps of how to use Weka as well as AutoWeka will be described in the appendix.
 
-* **Tuning** - In the section 3, we defined a specific score to determine the number of principal components used to reduce the dimension. 
+* **Tuning** - We skipped this step in this project because we focused on comparing the results of two methods under different models.
+<!--
+In the section 3, we defined a specific score to determine the number of principal components used to reduce the dimension. 
+-->
 * **Evaluation** - In the section 4, we presented various quantitiest to evaluate different models.  Finally, we gave the scores of our submissions on Kaggle site.
 
 <!--
@@ -155,8 +158,8 @@ PCA 1000 (normalized).
 * SMO							73.2382 %
 * MultilayerPerceptron		??? %
 * J48							40.0281 %
-* MultiClassClassifier(OvR)66.2797 %
-* MultiClassClassifier(OvO)??? %
+* MultiClassClassifier(OvR)??? % (pink)
+* MultiClassClassifier(OvO)Out of memory!
 * Weka							create train\_weka\_tol1000\_n\_pca\_SMO.model
 * prefixFilter			create test.json* create\_mtx.py				create test\_mtx.csv* create\_pca\_mtx.m			create test\_pca\_mtx\_K1000\_n.csv* create\_weka.py				create test\_weka\_tol1000\_n\_pca.csv (48.7M)* ./weka-csv-arff.pl < ./test\_weka\_tol1000\_n\_pca.csv > ./test\_weka\_tol1000\_n\_pca.arff* change the last attribute to cuisines* Weka							create test\_weka\_tol1000\_n\_pca\_SMO.txt 
 * ./weka-to-kaggle.pl < ./ test\_weka\_tol1000\_n\_pca\_SMO.txt > ./test\_weka\_tol1000\_n\_pca\_SMO\_sub.csv
@@ -177,7 +180,10 @@ PCA 1000 (normalized).
 ## 5. Discussion and conclusion
 * The reslut of the new method seemed the same as the old one. We don't know why.. 
 * Actually, the simple algorithm KNN with some specific distance and K=21 made a better result! (Screen Shot of Kaggle score)
-* Future work: Text mining, Compressed sensing, Factorization Machines (2010), Latent Dirichlet Allocation.
+You can find the code also in our GitHub site.
+	* [https://github.com/alicia6174/Kaggle-Whats-Cooking]
+
+* Future work - Text mining, Compressed sensing, Factorization Machines (2010), Latent Dirichlet Allocation.
 
 <!--
 * KNN: d(id1,id2) = #{ing(id1) \neq ing(id2)}
