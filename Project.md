@@ -5,7 +5,7 @@
 &nbsp; <p>
 &nbsp; <p>
 &nbsp; <p>
-<center> <img src="./pictures/Fig1.png" width="50%" /> </center>
+<center> <img src="./pictures/Whats_cooking.png" width="50%" /> </center>
 &nbsp; <p>
 &nbsp; <p>
 &nbsp; <p>
