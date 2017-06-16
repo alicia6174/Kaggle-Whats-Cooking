@@ -202,14 +202,12 @@ The reduced training data matrix of size $39774 \times 1000$ (without the header
 
 | 1 | 2 | $\ldots\ldots$ | 1000 | cuisine |
 | :---: | :---: | :---: | :---: | :---: |
-| 0.71 | 0.34 | $\ldots\ldots$ | 0.45 | greek |   
-| 0.49 | 0.57 | $\ldots\ldots$ | 0.47 | southern_us |
+| 0.83 | 0.67 | $\ldots\ldots$ | 0.52 | ? |   
+| 0.93 | 0.63 | $\ldots\ldots$ | 0.53 | ? |
 | $\vdots$ | $\vdots$ | $\ldots\ldots$ | $\vdots$ | $\vdots$ |
-| 0.30 | 0.30 | $\ldots\ldots$ | 0.47 | mexican 
+| 0.70 | 0.20 | $\ldots\ldots$ | 0.47 | ? | 
 
 </center>
-
-* Matrix
 
 ### Detailed steps
 <center>
@@ -236,7 +234,7 @@ The reduced training data matrix of size $39774 \times 1000$ (without the header
 
 </center>
 
-The 1001th attribute in the file test\_weka\_pca1000.arff needs to be modified to the 20 cuisines before testing.
+The 1001th attribute in the file test\_weka\_pca1000.arff needed to be modified to the 20 cuisines before testing.
 
 ## 4. Comparison results
 ### Evaluation
