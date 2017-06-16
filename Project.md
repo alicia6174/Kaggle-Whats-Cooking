@@ -80,31 +80,35 @@ Obviously, this competition is a **supervised problem** of **multi-class classif
 
 * Transform to binary - OvR (one-against-all), OvO (one-against-one)* Extend from binary - Naive Bayes, KNN (IBk), Decision trees (J48), SVM (SMO), Neural networks (Multilayer Perceptron)
 ### The main steps of learning
-There are five major steps of machine learning.
+There are five major steps of machine learning in this project.
 
 * **Data analysis** - We started with **data preprocessing** by these initial process.
 	* Delete these special characters: ç, è, é, ®, and ™.
 	* Convert all the strings into the type of UTF-8. 
 
-	Then we  transformed the data into a sparse matrix full of 0 and 1 	which will be metnioned in the beginnings of sections 2 and 3.
+* **Visualization** - If we transform the training data into a sparse matrix full of $0$ and $1$ directly, the matrix will have the size of $39774 \times 6714$. To cope with this matrix more efficiently, we need **dimension reduction** to compress the size of matrix without losing too many varieties of data. **This step is the main difference between related work and our new method** which will be mentioned in the sections 2 \& 3.
 
-* **Visualization** - According to the above result, the data matrix derived from the training instances has size of 39774 x 6714. To cope with this matrix more efficiently, we need **dimension reduction** to compress the size of matrix without losing too many varieties of data. **This step is the main difference between related work and our new method** which will be also mentioned in the sections 2 and 3.
-* **Modeling** - We chose **Weka** environment to create models. The process of converting data matrix to the valid file for Weka environment will be mentioned in the sections 2 and 3. **AutoWeka** is a tool which provides the ideal model for any given data, but we didn't use it in this project since it cost too much time. All the codes used in this project will be offered in the GitHub.
+* **Modeling** - We chose **Weka** environment to create models. The detailed process of converting data matrix to the valid file for Weka environment will be mentioned also in the sections 2 \& 3. All the codes used in this project can be found in the GitHub.
 	* [https://github.com/alicia6174/Kaggle-Whats-Cooking]
 
-	The detailed steps of how to use Weka as well as AutoWeka will be described in the appendix.
+	The instructions of how to use Weka will be described in the appendix.
+	We skipped **tuning** in this project because we focused on comparing the results of two methods under different models.
 
-* **Tuning** - We skipped this step in this project because we focused on comparing the results of two methods under different models.
-
+<!--
+**AutoWeka** is a tool which provides the ideal model for any given data, but we didn't use it in this project since it cost too much time. 
+-->
+	
 <!--
 In the section 3, we defined a specific score to determine the number of principal components used to reduce the dimension.
 Can we use AutoWeka to do tuning? 
 -->
-* **Evaluation** - In the section 4, we presented various quantitiest to evaluate different models.  Finally, we gave the scores of our submissions on Kaggle site.
+* **Evaluation** - We presented various quantitiest to evaluate different models in the section 4.  Finally, we gave the scores of our submissions on Kaggle site.
 
 <!--
 These evidences showed that our method works better than the old one.
 -->
+
+* **Prediction** - We saved the best model depending on the evaluation and used it to predict the cuisine of each testing data. The process will be mentioned also in the sections 2 \& 3.
 
 <!--
 ### Data preprocessing 
@@ -120,33 +124,83 @@ Detailed steps.
 * a.encode(‘utf-8’)		unicode
 -->
 
-<div style="page-break-after: always;"></div>
-
 ## 2. Related work
 ### Descriptions of method
 
-* Data preprocessing
-* Dimension reduction -> Top 1000 ing. + ing_len (normalized and rounded). Matrix.
-* Modeling -> Weka (detailed steps)
-* Testing
+* **Dimension reduction** - The old method collected the **top ingredients** which occur most frequently in the training data as the features. To compare with our method, we chose the number of features to be $1000$. In that way, each data could be transformed into a $1000$-dimensional vector with the $i$th component being $1$ if its ingredients contain the $i$th feature and being $0$ if otherwise. The training data matrix of size $39774 \times 1000$ (without the header and labels) had this form and was saved as a csv file.
+
+<center>
+
+| 1 | 2 | $\ldots\ldots$ | 1000 | cuisine |
+| :---: | :---: | :---: | :---: | :---: |
+| 0 | 0 | $\ldots\ldots$ | 0 | greek |   
+| 1 | 0 | $\ldots\ldots$ | 0 | southern_us |
+| $\vdots$ | $\vdots$ | $\ldots\ldots$ | $\vdots$ | $\vdots$ |
+| 0 | 1 | $\ldots\ldots$ | 1 | mexican |
+
+</center>
+ 
+* **Modeling** - We converted the csv file into an arff file so that the Weka environment would work more smoothly. We tried several multi-class classifiers for comparison. According to the evaluation (see §4), we saved the best model   **SMO** to make predictions.
+
+* **Prediction** - We repeated the steps of preprocessing and converting files to create the arff file of testing data. Then we used Weka again to predict the result. Finally, we saved the result as a needed submission file and uploaded it on the Kaggle site for scoring.
+
+* Matrix
 ### Detailed steps<center>
 | Coding files \& ML Tools | Created files | Goals |
 | :--- | :--- | :--- |
 | prefixFilter | train.json | delete special characters |
 | create\_top\_ing.py | ing\_top1000.csv | find top 1000 ingredietns |
-| create_mtx.py | train\_weka\_top1000\_len.csv **(81M)** | create the reduced training data for modeling |
-| weka-csv-arff.pl | train\_weka\_top1000\_len.arff | convert to arff file | 
+| create_weka.py | train\_weka\_top1000.csv **(81M)** | create the reduced training data for modeling |
+| weka-csv-arff.pl | train\_weka\_top1000.arff | convert to arff file | 
 | Weka |  | create models and make evaluations |
+| Weka | train\_weka\_top1000\_SMO.model | create the model of SMO |
+| prefixFilter | test.json | delete special characters |
+| create\_weka.py | test\_weka\_top1000.csv **(???M)** | create the reduced testing data for prediction |
+| weka-csv-arff.pl | test\_weka\_top1000.arff | convert to arff file |
+| Weka | test\_weka\_top1000\_SMO.txt | make predictions |
+| weka-to-kaggle.pl | test\_weka\_top1000\_SMO.csv | create the submission file for Kaggle |
 
 </center>
+
+The 1001th attribute in the file test\_weka\_top1000.arff needs to be modified to the $20$ cuisines before testing.
 
 ## 3. New methods
 ### Descriptions of method
 
-* Data preprocessing
-* Dimension reduction -> PCA 1000 PCs (normalized and rounded), linear unsupervised reduction. Matrix.
-* Modeling -> Weka (detailed steps) 
-* Testing
+* **Dimension reduction** - Our method adopted **PCA** which is a linear unsupervised reduction. First we collected the totally $6714$ ingredients as features and each data could be transformed into a $6714$-dimensional vector with the $i$th component being $1$ if its ingredients contain the $i$th feature and being $0$ if otherwise. In that way, we could create the training data matrix of size $39774 \times 6714$. Second we computed the eigenvalues and eigenvectors of the corresponding covariance matrix. Third we chose the number of reduced dimension to be $1000$ according to the score defined by
+$$\textrm{Score}(k) = \frac{\sum_{i=1}^k \lambda_i}{\sum_{i=1}^{6714} \lambda_i}$$
+where $\lambda_i$s are the eigenvalues which satisfy $\lambda_1 \geq \lambda_2 \geq \ldots \geq \lambda_{6714}$. This grapf of score versus number of eigenvalues shows that $1000$ corresponds to the score of $90$.
+<center> <img src="./pictures/Score.pdf" width="80%" /> </center>
+Finally we multiply the training data matrix by this matrix composed of the top $1000$ eigenvectors to obtain the reduced training data matrix.
+$$
+\begin{bmatrix}
+\quad & \quad & \quad & \quad \\
+\quad & \quad & \quad & \quad \\
+v_1 & v_2 & \ldots & v_{1000}\\
+\quad & \quad & \quad & \quad \\
+\quad & \quad & \quad & \quad 
+\end{bmatrix}_{\; 6714 \times 1000}
+$$
+The training data matrix of size $39774 \times 1000$ (without the header and labels) had this form and was saved as a csv file.
+
+<center>
+
+| 1 | 2 | $\ldots\ldots$ | 1000 | cuisine |
+| :---: | :---: | :---: | :---: | :---: |
+| 0 | 0 | $\ldots\ldots$ | 0 | greek |   
+| 1 | 0 | $\ldots\ldots$ | 0 | southern_us |
+| $\vdots$ | $\vdots$ | $\ldots\ldots$ | $\vdots$ | $\vdots$ |
+| 0 | 1 | $\ldots\ldots$ | 1 | mexican |
+
+</center>
+
+* PCA 1000 PCs (normalized and rounded),  Matrix.
+
+* **Modeling** - This step was conducted almost the same as in the section 2. The main difference was that **SMO** still served as the best model after evaluation (see §4).
+
+* **Prediction** - 
+
+* Matrix
 
 ### Detailed steps
 <center>
@@ -165,15 +219,15 @@ Detailed steps.
 | Weka | train\_weka\_pca1000\_SMO.model | create the model of SMO |
 | prefixFilter | test.json | delete special characters |
 | create\_mtx.py | test\_mtx.csv | create the testing data matrix of size 9944 x 6714 |
-| create\_pca\_mtx.m | test\_pca\_mtx\_1000.csv | reate the reduced testing data matrix of size 9944 x 1000 by matrix mutiplication |
-| create\_weka.py | test\_weka\_pca1000.csv **(48.7M)** | create the reduced testing data to make prediction |
+| create\_pca\_mtx.m | test\_pca\_mtx\_1000.csv | create the reduced testing data matrix of size 9944 x 1000 by matrix mutiplication |
+| create\_weka.py | test\_weka\_pca1000.csv **(48.7M)** | create the reduced testing data for prediction |
 | weka-csv-arff.pl | test\_weka\_pca1000.arff | convert to arff file |
 | Weka | test\_weka\_pca1000\_SMO.txt | make predictions |
 | weka-to-kaggle.pl | test\_weka\_pca1000\_SMO.csv | create the submission file for Kaggle |
 
 </center>
 
-PS. Need to modify the 1001th attribute of test\_weka\_pca1000.arff from empty to the 20 cuisines before testing.
+The 1001th attribute in the file test\_weka\_pca1000.arff needs to be modified to the 20 cuisines before testing.
 
 ## 4. Comparison results
 ### Evaluation
@@ -200,7 +254,7 @@ PS. Need to modify the 1001th attribute of test\_weka\_pca1000.arff from empty t
 	* J48							40.0281 %
 	* MultiClassClassifier(OvR)??? % (pink)
 	* MultiClassClassifier(OvO)Out of memory!
-* Runnung time
+* Training time
 * Confusion matrix 
 * ROC, AUC ...
 
@@ -269,7 +323,7 @@ Formal steps.* Create a new csv data file (in a needed form).* Convert it to 
 [3]: https://www.tenlong.com.tw/products/9789863794578 
 
 <!-- §1. 寫完§2,3,4後Introduction需要修正 -->
-<!-- §2,3. 重新命名檔案！加上每個演算法的選取參數！有底線的地方要打成"\_"! -->
+<!-- §2,3. 重新命名檔案！加上每個演算法的選取參數！有底線的地方要打成"\_"! create\_eigVec.pl與create\_eigVal.pl檢查是否正確！ -->
 <!-- §5. KNN與其他方法資料型態不一樣且沒有evaluation的部分 -> 了解各方法的細節看如何寫比較好且補足需要的部分或者乾脆省略 -->
 <!-- 表格變色了...-->
 <!-- 新的section新起一頁？ -->
