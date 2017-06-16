@@ -56,11 +56,14 @@ After an initial step of statistics, some basic summaries about data are given b
 | Number of training instances | 39774  |
 | :---: | :---: |
 | **Number of testing instances** | **9944** |
-| **Length of longest list of ingregients in training data** | **65** |
-| **Length of shortest list of ingregients in training data** | **1** |
 | **Total number of ingregients in training data** | **6714** |
 
 </center>
+
+<!--
+| **Length of longest list of ingregients in training data** | **65** |
+| **Length of shortest list of ingregients in training data** | **1** |
+-->
 
 The submission needs to be saved as a csv file of this form.
 <center>
@@ -75,17 +78,30 @@ The submission needs to be saved as a csv file of this form.
 
 Obviously, this competition is a **supervised problem** of **multi-class classification**. There are several kinds of applicable classifiers.
 
-* Transform to binary - OvR, OvO* Extend from binary - Naive Bayes, KNN, Decision trees, SVM, Neural networks, ELM* Hierarchical classification
-
+* Transform to binary - OvR (one-against-all), OvO (one-against-one)* Extend from binary - Naive Bayes, KNN (IBk), Decision trees (J48), SVM (SMO), Neural networks (Multilayer Perceptron)
 ### The main steps of learning
 There are five major steps of machine learning in this project.
 
-* **Data analysis** - We dealt with **data preprocessing** and decided the form of data representation in this step which will be metnioned in the beginnings of sections 2 and 3.
-* **Visualization** - According to the above result, the data matrix derived from the training instances has size of 39774 x 6714. To cope with this matrix more efficiently, we need **dimension reduction** to compress the size of matrix without losing too many varieties of data. This step is the main difference between related work and the new method mentioned in this project which will be mentioned in the sections 2 and 3.
-* **Modeling** - We chose **Weka** environment to create models. The process of converting data matrix to the valid file for Weka environment will be mentioned in the sections 2 and 3. The detailed steps of how to use Weka will be described in the appendix.
-* **Tuning** - In the section 3, we defined a specific score to determine the number of principal components used to reduce the dimension. And then, we used the  **AutoWeka** tool to choose appropriate parameters needed in the candidate models. The detailed steps of how to use AutoWeka will be described in the appendix.
-* **Evaluation** - In the section 4, we presented various quantitiest to evaluate different models. These evidences showed that our method works better than the old one. Finally, we gave the scores of our submissions on Kaggle site.
+* **Data analysis** - We started with **data preprocessing** by these initial process.
+	* Delete these special characters: ç, è, é, ®, and ™.
+	* Convert all the strings into the type of UTF-8. 
 
+	Then we  transformed the data into a sparse matrix full of 0 and 1 	which will be metnioned in the beginnings of sections 2 and 3.
+
+* **Visualization** - According to the above result, the data matrix derived from the training instances has size of 39774 x 6714. To cope with this matrix more efficiently, we need **dimension reduction** to compress the size of matrix without losing too many varieties of data. **This step is the main difference between related work and our new method** which will be also mentioned in the sections 2 and 3.
+* **Modeling** - We chose **Weka** environment to create models. The process of converting data matrix to the valid file for Weka environment will be mentioned in the sections 2 and 3. **AutoWeka** is a tool which provides the ideal model for any given data, but we didn't use it in this project since it cost too much time. All the codes used in this project will be offered in the GitHub.
+	* [https://github.com/alicia6174/Kaggle-Whats-Cooking]
+
+	The detailed steps of how to use Weka as well as AutoWeka will be described in the appendix.
+
+* **Tuning** - In the section 3, we defined a specific score to determine the number of principal components used to reduce the dimension. 
+* **Evaluation** - In the section 4, we presented various quantitiest to evaluate different models.  Finally, we gave the scores of our submissions on Kaggle site.
+
+<!--
+These evidences showed that our method works better than the old one.
+-->
+
+<!--
 ### Data preprocessing 
 * delete special characters(appendix) 
 * convert to unitcode(appendix) 
@@ -97,6 +113,7 @@ Detailed steps.
 * prefixFilter			create train.json  → delete special characters
 * :set ff=unix			unicode
 * a.encode(‘utf-8’)		unicode
+-->
 
 ## 2. Related work
 * Top ing. -> sketch the method
@@ -108,15 +125,15 @@ Detailed steps.
 * Best: Top 1000, S=0.57 (§4)
 * We've tried Top 200 ing. + ing_len (normalized) -> Not good enough.
 * The file size 81M vs. 187M due to the float type of PCA data.
-Top 1000 ing. + ing_len (normalized).* create_top_ing.py		create ing\_top200.csv* create_mtx.py			create train\_weka\_top200\_len.csv (81M)* ./weka-csv-arff.pl < ./train\_weka\_top200\_len.csv > ./train\_weka\_top200\_len.arff
+Top 1000 ing. + ing_len (normalized).* prefixFilter			create train.json* create_top_ing.py		create ing\_top200.csv* create_mtx.py			create train\_weka\_top200\_len.csv (81M)* ./weka-csv-arff.pl < ./train\_weka\_top200\_len.csv > ./train\_weka\_top200\_len.arff
 * Weka (Percen66%)* Naïve Bayes					63.3365 %
 * IBk, k=1501					31.7533 % Take k=1501 for some reason
+* SMO							xxx %
+* MultilayerPerceptron		??? %
 * J48							64.2387 %
-* SMO							Out of memory!
-* RandomTree					45.7739 % 
-* RandomForest				Out of memory!
-* MultiClassClassifier(OvR)Out of memory!
-* MultiClassClassifier(OvO)Out of memory!* Testing???
+* MultiClassClassifier(OvR)??? %
+* MultiClassClassifier(OvO)???
+* prefixFilter			create test.json* Testing???
 
 ## 3. New methods
 * PCA + SMO -> sketch the method
@@ -130,36 +147,36 @@ Detailed steps.
 
 PCA 1000 (normalized).
 
+* prefixFilter			create train.json
 * do\_pca.cpp			Have checked that eigenvectors are o.n.* divide\_into\_vec\_val.pl	* create\_pca_mtx.m			create train\_pca_mtx\_K1000\_n.csv (normalized)* create\_weka.py				create train\_weka\_tol1000\_n\_pca.csv (187M by round)* ./weka-csv-arff.pl < ./train\_weka\_tol1000\_n\_pca.csv > ./train\_weka\_tol1000\_n\_pca.arff
 * Weka (Percen66%)
 * Naïve Bayes					3x.xxx %
 * IBk, k=1501					30.8364 % Take k=1501 for some reason
-* J48							40.0281 %
 * SMO							73.2382 %
-* RandomTree					23.8335 %
-* RandomForest				
+* MultilayerPerceptron		??? %
+* J48							40.0281 %
 * MultiClassClassifier(OvR)66.2797 %
-* MultiClassClassifier(OvO)
-* Weka							create train\_weka\_tol1000\_n\_pca\_SMO.model* create\_mtx.py				create test\_mtx.csv* create\_pca\_mtx.m			create test\_pca\_mtx\_K1000\_n.csv* create\_weka.py				create test\_weka\_tol1000\_n\_pca.csv (48.7M)* ./weka-csv-arff.pl < ./test\_weka\_tol1000\_n\_pca.csv > ./test\_weka\_tol1000\_n\_pca.arff* change the last attribute to cuisines* Weka							create test\_weka\_tol1000\_n\_pca\_SMO.txt 
+* MultiClassClassifier(OvO)??? %
+* Weka							create train\_weka\_tol1000\_n\_pca\_SMO.model
+* prefixFilter			create test.json* create\_mtx.py				create test\_mtx.csv* create\_pca\_mtx.m			create test\_pca\_mtx\_K1000\_n.csv* create\_weka.py				create test\_weka\_tol1000\_n\_pca.csv (48.7M)* ./weka-csv-arff.pl < ./test\_weka\_tol1000\_n\_pca.csv > ./test\_weka\_tol1000\_n\_pca.arff* change the last attribute to cuisines* Weka							create test\_weka\_tol1000\_n\_pca\_SMO.txt 
 * ./weka-to-kaggle.pl < ./ test\_weka\_tol1000\_n\_pca\_SMO.txt > ./test\_weka\_tol1000\_n\_pca\_SMO\_sub.csv
 * Kaggle score: 0.66020
 ## 4. Comparison results
 ### Evaluation
 * Put some of these results in the appendix since the matrix of results are too large!
-* The runnung time is meaningless here since we used three devices to create all of the results simultaneously for convenience. 
-* The devices are: MacBook Air, Fedora, Google
+* The device we used is Google * 4. We run four PC simultaneously for convenience.
 * Correctness / Accuracy / Error rate
-* K-fold cross-validation
+* Runnung time
+* We computed Percent 66% instead of K-fold cross-validation since the data is too large!
 * Confusion matrix 
-* ROC curve 
-* AUC value
+* ROC, AUC ...
 
 ### Kaggle score
-* Kaggle score (Screen Shot)
+* Screen Shot of Kaggle score
 
 ## 5. Discussion and conclusion
-* Why did the new methods work better?
-* Actually, the simple algorithm KNN with some specific distance made a result as well as PCA!
+* The reslut of the new method seemed the same as the old one. We don't know why.. 
+* Actually, the simple algorithm KNN with some specific distance and K=21 made a better result! (Screen Shot of Kaggle score)
 * Future work: Text mining, Compressed sensing, Factorization Machines (2010), Latent Dirichlet Allocation.
 
 <!--
@@ -172,21 +189,30 @@ PCA 1000 (normalized).
 -->
 
 ## Appendix
+<!--
 ### Coding
 * You can find all the codes in this site. [https://github.com/alicia6174/Kaggle-Whats-Cooking] 
 * Please contact me if you have any question.
 <yhguan8128@gmail.com>
 
 [https://github.com/alicia6174/Kaggle-Whats-Cooking]: https://github.com/alicia6174/Kaggle-Whats-Cooking 
+-->
 
-### How to use Weka & Version of Weka
+### How to use Weka
+Version of Weka.
+
+* 3.8.0
+* Need to install Java
+
 Sketch the steps.
 
 * Transform training data to a csv file. * Try several multi-class classifications and choose features (ex. #(ing.) for each cuisine).* Compute the accuracy and cross validation.* Choose a model to test. ex. J48, KNN, PLA, Bayes...
 
 Formal steps.* Create a new csv data file (in a needed form).* Convert it to UTF8 encoding. (use instruction in vim [A]).* Convert it into train and test arff files (Hsin’s shell-script [A]).* Train train.arff  by xxx on Weka, analyze the data (MAE, ROC…), and save xxx.model.* Test test.arff by the model, and save result_xxx.txt.* Convert result_xxx.txt to result_xxx.csv.
 
-### How to use Automatic Weka & & Version of AutoWeka* For the newest Weka 3.8.0 and Auto-Weka 2.5, it needs to install Java and JDK and type the specific instruction to avoid java executable issue. 
+### How to use Automatic Weka & & Version of AutoWekaVersion of Weka.* For the newest Weka 3.8.0 and Auto-Weka 2.5, it needs to install Java and JDK and type the specific instruction to avoid java executable issue. Sketch the steps.
+
+* ...
 ## References
 <!--
 1. P. Hall *et al.* Choice of neighbor order in nearest-neighbor classification. *Ann. Stat.*, 36(5):2135-2152, 2008.
@@ -204,3 +230,4 @@ Formal steps.* Create a new csv data file (in a needed form).* Convert it to 
 <!-- §5. KNN與其他方法資料型態不一樣且沒有evaluation的部分 -> 了解各方法的細節看如何寫比較好且補足需要的部分或者乾脆省略 -->
 <!-- 新的section新起一頁？ -->
 <!-- 參考資料recheck, 目錄, 頁碼, 與插圖？ -->
+<!-- 重要的：為何用1000個特徵？ 為何選用那些model? 為何取percent66%? 為何KNN的K取1501? 為何只看ROC, AUC...?  -->
