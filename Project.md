@@ -95,8 +95,10 @@ There are five major steps of machine learning.
 	The detailed steps of how to use Weka as well as AutoWeka will be described in the appendix.
 
 * **Tuning** - We skipped this step in this project because we focused on comparing the results of two methods under different models.
+
 <!--
-In the section 3, we defined a specific score to determine the number of principal components used to reduce the dimension. 
+In the section 3, we defined a specific score to determine the number of principal components used to reduce the dimension.
+Can we use AutoWeka to do tuning? 
 -->
 * **Evaluation** - In the section 4, we presented various quantitiest to evaluate different models.  Finally, we gave the scores of our submissions on Kaggle site.
 
@@ -118,71 +120,106 @@ Detailed steps.
 * a.encode(‘utf-8’)		unicode
 -->
 
+<div style="page-break-after: always;"></div>
+
 ## 2. Related work
-* Top ing. -> sketch the method
-* Dimension reduction -> Top ing.
+### Descriptions of method
+
+* Data preprocessing
+* Dimension reduction -> Top 1000 ing. + ing_len (normalized and rounded). Matrix.
 * Modeling -> Weka (detailed steps)
-* Tuning -> How to choose num. of top ing.?
 * Testing
-* Coding: appendix
-* Best: Top 1000, S=0.57 (§4)
-* We've tried Top 200 ing. + ing_len (normalized) -> Not good enough.
-* The file size 81M vs. 187M due to the float type of PCA data.
-Top 1000 ing. + ing_len (normalized).* prefixFilter			create train.json* create_top_ing.py		create ing\_top200.csv* create_mtx.py			create train\_weka\_top200\_len.csv (81M)* ./weka-csv-arff.pl < ./train\_weka\_top200\_len.csv > ./train\_weka\_top200\_len.arff
-* Weka (Percen66%)* Naïve Bayes					63.3365 %
-* IBk, k=1501					31.7533 % Take k=1501 for some reason
-* SMO							xxx %
-* MultilayerPerceptron		??? %
-* J48							64.2387 %
-* MultiClassClassifier(OvR)??? %
-* MultiClassClassifier(OvO)???
-* prefixFilter			create test.json* Testing???
+### Detailed steps<center>
+| Coding files \& ML Tools | Created files | Goals |
+| :--- | :--- | :--- |
+| prefixFilter | train.json | delete special characters |
+| create\_top\_ing.py | ing\_top1000.csv | find top 1000 ingredietns |
+| create_mtx.py | train\_weka\_top1000\_len.csv **(81M)** | create the reduced training data for modeling |
+| weka-csv-arff.pl | train\_weka\_top1000\_len.arff | convert to arff file | 
+| Weka |  | create models and make evaluations |
+
+</center>
 
 ## 3. New methods
-* PCA + SMO -> sketch the method
-* Dimension reduction -> PCA, linear unsupervised reduction
-* Modeling -> Auto Weka + Weka (detailed steps)
-* Tuning -> 1. How to choose num. of PCs? Score.pdf 2. How to choose parameters of SMo? AutoWeka
+### Descriptions of method
+
+* Data preprocessing
+* Dimension reduction -> PCA 1000 PCs (normalized and rounded), linear unsupervised reduction. Matrix.
+* Modeling -> Weka (detailed steps) 
 * Testing
-* Coding: appendix
-* Best: PCs 1000, S=0.66020 (§4)
-* We've tried PCA 2000 (normalized) -> Out of memory while using Weka.
 
-PCA 1000 (normalized).
+### Detailed steps
+<center>
 
-* prefixFilter			create train.json
-* do\_pca.cpp			Have checked that eigenvectors are o.n.* divide\_into\_vec\_val.pl	* create\_pca_mtx.m			create train\_pca_mtx\_K1000\_n.csv (normalized)* create\_weka.py				create train\_weka\_tol1000\_n\_pca.csv (187M by round)* ./weka-csv-arff.pl < ./train\_weka\_tol1000\_n\_pca.csv > ./train\_weka\_tol1000\_n\_pca.arff
-* Weka (Percen66%)
-* Naïve Bayes					3x.xxx %
-* IBk, k=1501					30.8364 % Take k=1501 for some reason
-* SMO							73.2382 %
-* MultilayerPerceptron		??? %
-* J48							40.0281 %
-* MultiClassClassifier(OvR)??? % (pink)
-* MultiClassClassifier(OvO)Out of memory!
-* Weka							create train\_weka\_tol1000\_n\_pca\_SMO.model
-* prefixFilter			create test.json* create\_mtx.py				create test\_mtx.csv* create\_pca\_mtx.m			create test\_pca\_mtx\_K1000\_n.csv* create\_weka.py				create test\_weka\_tol1000\_n\_pca.csv (48.7M)* ./weka-csv-arff.pl < ./test\_weka\_tol1000\_n\_pca.csv > ./test\_weka\_tol1000\_n\_pca.arff* change the last attribute to cuisines* Weka							create test\_weka\_tol1000\_n\_pca\_SMO.txt 
-* ./weka-to-kaggle.pl < ./ test\_weka\_tol1000\_n\_pca\_SMO.txt > ./test\_weka\_tol1000\_n\_pca\_SMO\_sub.csv
-* Kaggle score: 0.66020
+| Coding files \& ML Tools | Created files | Goals |
+| :--- | :--- | :--- |
+| prefixFilter | train.json | delete special characters |
+| create_mtx.py | train_mtx.csv | create the training data matrix of size 39774 x 6714 |
+| do\_pca.cpp | eigVal_eiglVec | find the PCs and eigenvalues of the above matrix |
+| create\_eigVec.pl | eigVec | divide the file eigVal_eiglVec into eigVec and eigVal |
+| create\_eigVal.pl | eigVal | divide the file eigVal_eiglVec into eigVec and eigVal |
+| create\_pca_mtx.m | train\_pca_mtx\_1000.csv | create the reduced training data matrix of size 39774 x 1000 by matrix mutiplication |
+| create\_weka.py | train\_weka\_pca1000.csv **(187M)** | create the reduced training data for modeling |
+| weka-csv-arff.pl | train\_weka\_pca1000.arff | convert to arff file |
+| Weka |  | create models and make evaluations |
+| Weka | train\_weka\_pca1000\_SMO.model | create the model of SMO |
+| prefixFilter | test.json | delete special characters |
+| create\_mtx.py | test\_mtx.csv | create the testing data matrix of size 9944 x 6714 |
+| create\_pca\_mtx.m | test\_pca\_mtx\_1000.csv | reate the reduced testing data matrix of size 9944 x 1000 by matrix mutiplication |
+| create\_weka.py | test\_weka\_pca1000.csv **(48.7M)** | create the reduced testing data to make prediction |
+| weka-csv-arff.pl | test\_weka\_pca1000.arff | convert to arff file |
+| Weka | test\_weka\_pca1000\_SMO.txt | make predictions |
+| weka-to-kaggle.pl | test\_weka\_pca1000\_SMO.csv | create the submission file for Kaggle |
+
+</center>
+
+PS. Need to modify the 1001th attribute of test\_weka\_pca1000.arff from empty to the 20 cuisines before testing.
+
 ## 4. Comparison results
 ### Evaluation
 * Put some of these results in the appendix since the matrix of results are too large!
 * The device we used is Google * 4. We run four PC simultaneously for convenience.
-* Correctness / Accuracy / Error rate
+* Correctness / Accuracy / Error rate. We computed Percent 66% instead of K-fold cross-validation since the data is too large!
+
+	Old method:
+	
+	* Naïve Bayes					63.3365 %
+	* IBk, k=1501					31.7533 % Take k=1501 for some reason
+	* SMO							xxx %
+	* MultilayerPerceptron		??? %
+	* J48							64.2387 %
+	* MultiClassClassifier(OvR)??? %
+	* MultiClassClassifier(OvO)???
+
+	New method:
+	
+	* Naïve Bayes					3x.xxx %
+	* IBk, k=1501					30.8364 % Take k=1501 for some reason
+	* SMO							73.2382 %
+	* MultilayerPerceptron		??? %
+	* J48							40.0281 %
+	* MultiClassClassifier(OvR)??? % (pink)
+	* MultiClassClassifier(OvO)Out of memory!
 * Runnung time
-* We computed Percent 66% instead of K-fold cross-validation since the data is too large!
 * Confusion matrix 
 * ROC, AUC ...
 
 ### Kaggle score
+* Old: Top 1000, S=???
+* New: PCs 1000, S=0.66020
 * Screen Shot of Kaggle score
 
 ## 5. Discussion and conclusion
-* The reslut of the new method seemed the same as the old one. We don't know why.. 
-* Actually, the simple algorithm KNN with some specific distance and K=21 made a better result! (Screen Shot of Kaggle score)
+* The file size 81M vs. 187M due to the float type of PCA data.
+* Why did we choose the number of features to be 1000? Score.pdf
+	* Old method: We've tried Top 200 ing. + ing_len (normalized) -> Not good enough.
+	* New method: We've tried PCA 2000 (normalized) -> Out of memory. 
+* Why did we choose 66 % instead of k-fold validation? The data is too large.
+* Why did we choose those models?
+* The parameter K of KNN was taken as K=1501 due to the reference. Actually, we made a KNN algorithm ourselves with some specific distance and K=21 created a better result! (Screen Shot of Kaggle score)
 You can find the code also in our GitHub site.
 	* [https://github.com/alicia6174/Kaggle-Whats-Cooking]
-
+* The reslut of the new method seemed the same as the old one. We don't know why.. 
 * Future work - Text mining, Compressed sensing, Factorization Machines (2010), Latent Dirichlet Allocation.
 
 <!--
@@ -234,6 +271,7 @@ Formal steps.* Create a new csv data file (in a needed form).* Convert it to 
 <!-- §1. 寫完§2,3,4後Introduction需要修正 -->
 <!-- §2,3. 重新命名檔案！加上每個演算法的選取參數！有底線的地方要打成"\_"! -->
 <!-- §5. KNN與其他方法資料型態不一樣且沒有evaluation的部分 -> 了解各方法的細節看如何寫比較好且補足需要的部分或者乾脆省略 -->
+<!-- 表格變色了...-->
 <!-- 新的section新起一頁？ -->
 <!-- 參考資料recheck, 目錄, 頁碼, 與插圖？ -->
-<!-- 重要的：為何用1000個特徵？ 為何選用那些model? 為何取percent66%? 為何KNN的K取1501? 為何只看ROC, AUC...?  -->
+<!-- 重要的:為何只看ROC, AUC...?  -->
