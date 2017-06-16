@@ -155,7 +155,7 @@ Detailed steps.
 | Weka |  | create models and make evaluations |
 | Weka | train\_weka\_top1000\_SMO.model | create the model of SMO |
 | prefixFilter | test.json | delete special characters |
-| create\_weka.py | test\_weka\_top1000.csv **(???M)** | create the reduced testing data for prediction |
+| create\_weka.py | test\_weka\_top1000.csv **(21.2M)** | create the reduced testing data for prediction |
 | weka-csv-arff.pl | test\_weka\_top1000.arff | convert to arff file |
 | Weka | test\_weka\_top1000\_SMO.txt | make predictions |
 | weka-to-kaggle.pl | test\_weka\_top1000\_SMO.csv | create the submission file for Kaggle |
@@ -215,6 +215,7 @@ The reduced training data matrix of size $39774 \times 1000$ (without the header
 | Coding files \& ML Tools | Created files | Goals |
 | :--- | :--- | :--- |
 | prefixFilter | train.json | delete special characters |
+| create_top_ing.py | ing.csv | find all the 6714 ingredients | 
 | create_mtx.py | train_mtx.csv | create the training data matrix of size 39774 x 6714 |
 | do\_pca.cpp | eigVal_eiglVec | find the PCs and eigenvalues of the above matrix |
 | create\_eigVec.pl | eigVec | divide the file eigVal_eiglVec into eigVec and eigVal |
