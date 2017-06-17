@@ -246,22 +246,54 @@ All the results are shown in the table below.
 
 <center>
 <table border="1" align="center">
-<tr align="center"> <td>**Models**</td> <td>**The Old Method**</td> <td>**The New Method**</td> </tr>
-<tr align="center"> <td>Naïve Bayes</td> <td>63.3365 %</td> <td>xxx %</td> </tr>
-<tr align="center"> <td>IBk (k=1501) </td> <td>31.7533 %</td> <td>30.8364 %</td> </tr>
-<tr align="center"> <td>SMO</td> <td>xxx %</td> <td>73.2382 %</td> </tr>
-<tr align="center"> <td>Multilayer Perceptron</td> <td>green 27hr</td> <td>blue 30hr</td> </tr>
-<tr align="center"> <td>J48</td> <td>64.2387 %</td> <td>40.0281 %</td> </tr>
-<tr align="center"> <td>One-against-all</td> <td>orange 27.5hr</td> <td>xxx %</td> </tr>
-<tr align="center"> <td>One-against-one</td> <td>pink 27hr</td> <td>Out of memory</td> </tr>
+<tr align="center"> 
+<td colspan="3" valign="center">
+**66% Percentage Split Correctness, $\%$** <p> 
+**Running Time, $sec.$** 
+</td> 
+</tr>
+<tr align="center"> 
+<td>**Models**</td> 
+<td>**The Old Method**</td> 
+<td>**The New Method**</td> 
+</tr>
+<tr align="center"> 
+<td>IBk (k=1501) </td> 
+<td>31.7533 <p> 3093.23</td> 
+<td>30.8364 <p> 3451.79</td> 
+</tr>
+<tr align="center"> 
+<td>Naïve Bayes</td> 
+<td>63.3365 <p> 92.67</td> 
+<td>37.2846 <p> 55.37</td> 
+</tr>
+<tr align="center"> 
+<td>J48</td> 
+<td>64.2387 <p> 5337.63</td> 
+<td>40.0281 <p> 598.85</td> 
+</tr>
+<tr align="center"> 
+<td>SMO</td> 
+<td>73.3417 <p> 3140.75</td> 
+<td> <p> </td> 
+</tr>
+<tr align="center"> 
+<td>One-against-all</td> 
+<td>Have run 27.5hr <p> Give up</td> 
+<td>66.2797 <p> 12065.99</td> 
+</tr>
+<tr align="center"> 
+<td>One-against-one</td> 
+<td>Have run 27hr <p> Give up</td> 
+<td>Out of memory</td> 
+</tr>
+<tr align="center"> 
+<td>Multilayer Perceptron</td> 
+<td>Have run 27hr <p> Give up</td> 
+<td>Have run 30hr <p> Give up</td> 
+</tr>
 </table>
 </center>
-66% Percentage Split Correctness
-Old: NB, IBk, SMO, J48
-New: NB, IBk, SMO??? J48, OvR
-Running time?
-orange: 56670.79 s 
-pink: 17544.3 s
 
 * Kappa statistic ≈ 1? ROC area ≈ 1? MAE?
 	Show only the real results of SMO from Kaggle. 
