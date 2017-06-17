@@ -124,9 +124,17 @@ These evidences showed that our method works better than the old one.
  
 * **Modeling** - We converted the csv file into an arff file so that the Weka environment would work more smoothly. We tried several multi-class classifiers for comparison. According to the evaluation (see §4), we saved the best model   **SMO** to make predictions.
 
-* **Prediction** - We repeated the steps of preprocessing and file conversion to create the arff file of testing data. Then we used Weka again to predict the result. Finally, we saved the result as a needed submission file and uploaded it on the Kaggle site for scoring.
+* **Prediction** - We repeated the steps of preprocessing and file conversion to create the needed file of testing data. The reduced testing data matrix of size $9944 \times 1000$ (without the header and labels) had the following form and was saved as a csv file. After converting it to an arff file, we used Weka again to predict the result. Finally, we saved the result as a needed submission file and uploaded it on the Kaggle site for scoring. 
 
-* Matrix???
+<center>
+<table border="1" align="center">
+<tr align="center"> <td>**1**</td> <td>**2**</td> <td>$\ldots\ldots$</td> <td>**1000**</td> <td>**cuisine**</td> </tr>
+<tr align="center"> <td>0</td> <td>0</td> <td>$\ldots\ldots$</td> <td>0</td> <td>?</td> </tr>
+<tr align="center"> <td>0</td> <td>0</td> <td>$\ldots\ldots$</td> <td>0</td> <td>?</td> </tr>
+<tr align="center"> <td>$\vdots$</td> <td>$\vdots$</td> <td>$\ldots\ldots$</td> <td>$\vdots$</td> <td>$\vdots$</td> </tr>
+<tr align="center"> <td>0</td> <td>0</td> <td>$\ldots\ldots$</td> <td>0</td> <td>?</td> </tr>
+</table>
+</center>
 ### Detailed steps
 <center>
 <table border="1" align="center">
@@ -220,13 +228,14 @@ The 1001th attribute in the file test\_weka\_pca1000.arff needed to be modified 
 ## 4. Comparison results
 ### Evaluation
 * Our devices were the **Virtual Machine Instances** on **Google Cloud Platform**. We applied for 4 virtual machines of this size.
-	* ubuntu16-04
-	* 1 vCPU
-	* 6.5 GB
+	* OS: ubuntu16-04
+	* HDD: 20G
+	* CPU: 1 vCP
+	* RAM: 6.5 GB
 
-	And We run these machiens simultaneously for convenience.
+	And we run these machiens simultaneously for convenience.
 
-* Our ML tool was **Weka Environment** which needed **Java** and **JDK** to avoid java executable issue. 
+* We used the ML tool **Weka Environment** with the version shown below. In this project, we needed to modify the heap size to 4G. (The default size is 512M.)
 	* Weka Environment for Knowledge Analysis Version 3.8.0
 	* Java version "1.8.0_121"
 	* Java(TM) SE Runtime Environment (build 1.8.0_121-b13)
@@ -310,7 +319,7 @@ Formal steps.* Create a new csv data file (in a needed form).* Convert it to 
 [3]: https://www.tenlong.com.tw/products/9789863794578 
 
 <!-- §1. Recheck. 把五大步驟裡的文章結構拿到外面寫. 加寫兩個方法的動機. -->
-<!-- §2,3. 加上每個演算法的選取參數！create\_eigVec.pl與create\_eigVal.pl檢查是否正確！ -->
+<!-- §2,3. create\_eigVec.pl與create\_eigVal.pl檢查是否正確！ -->
+<!-- 把上傳的檔案放在GitHub. -->
 <!-- 新的section新起一頁？ -->
 <!-- Ref(PCA Score, KNN's K), 目錄, 頁碼, 與插圖？ -->
-<!-- 重要的:為何只看ROC, AUC...?  -->
