@@ -13,7 +13,7 @@
 &nbsp; <p>
 ### <center> 101021801 Yu-Hsuan Guan  </center>
 ### <center> NTHU Department of Mathematics</center>
-### <center> June 28, 2017 </center>
+### <center> June 21, 2017 </center>
 
 <div style="page-break-after: always;"></div>
 
@@ -50,18 +50,6 @@ There are totally 20 kinds of cuisines.
 </table>
 </center>
 
-<!--
-<center>
-
-| irish | mexican | chinese | filipino | vietnamese |
-| :-----------:| :--------:| :----------:| :-------:| :---------:|
-| **moroccan** | **brazilian** | **japanese** | **british** | **greek** |
-| **indian** | **jamaican** | **french** | **spanish** | **russian** |
-| **cajun_creole** | **thai** | **southern_us** | **korean** | **italian** |
-
-</center>
--->
-
 After an initial step of statistics, some basic summaries about data are given below.
 
 <center>
@@ -71,17 +59,6 @@ After an initial step of statistics, some basic summaries about data are given b
 <tr align="center"> <td>**Total number of ingregients in training data**</td> <td>6714</td> </tr>
 </table>
 </center>
-
-<!--
-<center>
-
-| Number of training instances | 39774  |
-| :---: | :---: |
-| **Number of testing instances** | **9944** |
-| **Total number of ingregients in training data** | **6714** |
-
-</center>
--->
 
 <!--
 | **Length of longest list of ingregients in training data** | **65** |
@@ -99,21 +76,9 @@ The submission needs to be saved as a csv file of this form.
 </table>
 </center>
 
-<!--
-<center>
-
-| id | cuisine |
-| :---: | :---: |
-| 18009 | italian |
-| 35203 | chinese |
-| ... | ... |
-
-</center>
--->
-
 Obviously, this competition is a **supervised problem** of **multi-class classification**. There are several kinds of applicable classifiers.
 
-* Transform to binary - OvR (one-against-all), OvO (one-against-one)* Extend from binary - Naive Bayes, KNN (IBk), Decision trees (J48), SVM (SMO), Neural networks (Multilayer Perceptron)
+* Transform to binary - **OvR** (one-against-all), **OvO** (one-against-one)* Extend from binary - **Naïve Bayes**, **KNN** (IBk), **Decision trees** (J48), **SVM** (SMO), **Neural networks** (Multilayer Perceptron)
 ### The main steps of learning
 There are five major steps of machine learning in this project.
 
@@ -131,12 +96,9 @@ There are five major steps of machine learning in this project.
 
 <!--
 **AutoWeka** is a tool which provides the ideal model for any given data, but we didn't use it in this project since it cost too much time. 
--->
-	
-<!--
-In the section 3, we defined a specific score to determine the number of principal components used to reduce the dimension.
 Can we use AutoWeka to do tuning? 
 -->
+
 * **Evaluation** - We presented various quantitiest to evaluate different models in the section 4.  Finally, we gave the scores of our submissions on Kaggle site.
 
 <!--
@@ -144,20 +106,6 @@ These evidences showed that our method works better than the old one.
 -->
 
 * **Prediction** - We saved the best model depending on the evaluation and used it to predict the cuisine of each testing data. The process will be mentioned also in the sections 2 \& 3.
-
-<!--
-### Data preprocessing 
-* delete special characters(appendix) 
-* convert to unitcode(appendix) 
-* change to 01-vectors 
-* a matrix of size 39774 x 6714 (training) without missing values -> very large!
-
-Detailed steps.
-
-* prefixFilter			create train.json  → delete special characters
-* :set ff=unix			unicode
-* a.encode(‘utf-8’)		unicode
--->
 
 ## 2. Related work
 ### Descriptions of method
@@ -173,19 +121,6 @@ Detailed steps.
 <tr align="center"> <td>0</td> <td>1</td> <td>$\ldots\ldots$</td> <td>1</td> <td>mexican</td> </tr>
 </table>
 </center>
-
-<!--
-<center>
-
-| 1 | 2 | $\ldots\ldots$ | 1000 | cuisine |
-| :---: | :---: | :---: | :---: | :---: |
-| 0 | 0 | $\ldots\ldots$ | 0 | greek |   
-| 1 | 0 | $\ldots\ldots$ | 0 | southern_us |
-| $\vdots$ | $\vdots$ | $\ldots\ldots$ | $\vdots$ | $\vdots$ |
-| 0 | 1 | $\ldots\ldots$ | 1 | mexican |
-
-</center>
--->
  
 * **Modeling** - We converted the csv file into an arff file so that the Weka environment would work more smoothly. We tried several multi-class classifiers for comparison. According to the evaluation (see §4), we saved the best model   **SMO** to make predictions.
 
@@ -209,24 +144,6 @@ Detailed steps.
 <tr align="left"> <td>weka-to-kaggle.pl</td> <td>test\_weka\_top1000\_SMO.csv</td> <td>create the submission file for Kaggle</td> </tr>
 </table>
 </center>
-
-<!--<center>
-| Coding files \& ML Tools | Created files | Goals |
-| :--- | :--- | :--- |
-| prefix\_filter | train.json | delete special characters |
-| create\_top\_ing.py | ing\_top1000.csv | find top 1000 ingredietns |
-| create_weka.py | train\_weka\_top1000.csv **(81M)** | create the reduced training data for modeling |
-| weka-csv-arff.pl | train\_weka\_top1000.arff | convert to arff file | 
-| Weka |  | create models and make evaluations |
-| Weka | train\_weka\_top1000\_SMO.model | create the model of SMO |
-| prefix\_filter | test.json | delete special characters |
-| create\_weka.py | test\_weka\_top1000.csv **(21.2M)** | create the reduced testing data for prediction |
-| weka-csv-arff.pl | test\_weka\_top1000.arff | convert to arff file |
-| Weka | test\_weka\_top1000\_SMO.txt | make predictions |
-| weka-to-kaggle.pl | test\_weka\_top1000\_SMO.csv | create the submission file for Kaggle |
-
-</center>
--->
 
 The 1001th attribute in the file test\_weka\_top1000.arff needs to be modified to the $20$ cuisines before testing.
 
@@ -259,19 +176,6 @@ The reduced training data matrix of size $39774 \times 1000$ (without the header
 </table>
 </center>
 
-<!--
-<center>
-
-| 1 | 2 | $\ldots\ldots$ | 1000 | cuisine |
-| :---: | :---: | :---: | :---: | :---: |
-| 0.71 | 0.34 | $\ldots\ldots$ | 0.45 | greek |   
-| 0.49 | 0.57 | $\ldots\ldots$ | 0.47 | southern_us |
-| $\vdots$ | $\vdots$ | $\ldots\ldots$ | $\vdots$ | $\vdots$ |
-| 0.30 | 0.30 | $\ldots\ldots$ | 0.47 | mexican 
-
-</center>
--->
-
 * **Modeling** - This step was conducted almost in the same way as in the section 2. The main difference was that **SMO** still served as the best model after evaluation (see §4).
 
 * **Prediction** - We conducted the same step of dimension reduction to obtain the reduced testing data matrix. The reduced testing data matrix of size $9944 \times 1000$ (without the header and labels) had this form and was saved as a csv file. The following steps was conducted in the same way as in the section 2.
@@ -285,19 +189,6 @@ The reduced training data matrix of size $39774 \times 1000$ (without the header
 <tr align="center"> <td>0.70</td> <td>0.20</td> <td>$\ldots\ldots$</td> <td>0.47</td> <td>?</td> </tr>
 </table>
 </center>
-
-<!--
-<center>
-
-| 1 | 2 | $\ldots\ldots$ | 1000 | cuisine |
-| :---: | :---: | :---: | :---: | :---: |
-| 0.83 | 0.67 | $\ldots\ldots$ | 0.52 | ? |   
-| 0.93 | 0.63 | $\ldots\ldots$ | 0.53 | ? |
-| $\vdots$ | $\vdots$ | $\ldots\ldots$ | $\vdots$ | $\vdots$ |
-| 0.70 | 0.20 | $\ldots\ldots$ | 0.47 | ? | 
-
-</center>
--->
 
 ### Detailed steps
 <center>
@@ -324,71 +215,44 @@ The reduced training data matrix of size $39774 \times 1000$ (without the header
 </table>
 </center>
 
-<!--
-<center>
-
-| Coding files \& ML Tools | Created files | Goals |
-| :--- | :--- | :--- |
-| prefix\_filter | train.json | delete special characters |
-| create\_top\_ing.py | ing.csv | find all the 6714 ingredients | 
-| create_mtx.py | train_mtx.csv | create the training data matrix of size 39774 x 6714 |
-| do\_pca.cpp | eigVal_eiglVec | find the PCs and eigenvalues of the above matrix |
-| create\_eigVec.pl | eigVec | divide the file eigVal_eiglVec into eigVec and eigVal |
-| create\_eigVal.pl | eigVal | divide the file eigVal_eiglVec into eigVec and eigVal |
-| create\_pca_mtx.m | train\_pca_mtx\_1000.csv | create the reduced training data matrix of size 39774 x 1000 by matrix mutiplication |
-| create\_weka.py | train\_weka\_pca1000.csv **(187M)** | create the reduced training data for modeling |
-| weka-csv-arff.pl | train\_weka\_pca1000.arff | convert to arff file |
-| Weka |  | create models and make evaluations |
-| Weka | train\_weka\_pca1000\_SMO.model | create the model of SMO |
-| prefix\_filter | test.json | delete special characters |
-| create\_mtx.py | test\_mtx.csv | create the testing data matrix of size 9944 x 6714 |
-| create\_pca\_mtx.m | test\_pca\_mtx\_1000.csv | create the reduced testing data matrix of size 9944 x 1000 by matrix mutiplication |
-| create\_weka.py | test\_weka\_pca1000.csv **(48.7M)** | create the reduced testing data for prediction |
-| weka-csv-arff.pl | test\_weka\_pca1000.arff | convert to arff file |
-| Weka | test\_weka\_pca1000\_SMO.txt | make predictions |
-| weka-to-kaggle.pl | test\_weka\_pca1000\_SMO.csv | create the submission file for Kaggle |
-
-</center>
--->
-
 The 1001th attribute in the file test\_weka\_pca1000.arff needed to be modified to the 20 cuisines before testing.
 
 ## 4. Comparison results
 ### Evaluation
-* Put some of these results in the appendix since the matrix of results are too large!
-* The device we used is Google * 4. We run four PC simultaneously for convenience.
-* Correctness / Accuracy / Error rate. We computed Percent 66% instead of K-fold cross-validation since the data is too large!
+* Our devices were the **Virtual Machine Instances** on **Google Cloud Platform**. We applied for 4 virtual machines of this size.
+	* ubuntu16-04
+	* 1 vCPU
+	* 6.5 GB
 
-	Old method:
-	
-	* Naïve Bayes					63.3365 %
-	* IBk, k=1501					31.7533 % Take k=1501 for some reason
-	* SMO							xxx %
-	* MultilayerPerceptron		??? %
-	* J48							64.2387 %
-	* MultiClassClassifier(OvR)??? %
-	* MultiClassClassifier(OvO)??? % (pink)
+	And We run these machiens simultaneously for convenience.
 
-	New method:
-	
-	* Naïve Bayes					3x.xxx %
-	* IBk, k=1501					30.8364 % Take k=1501 for some reason
-	* SMO							73.2382 %
-	* MultilayerPerceptron		??? % (blue)
-	* J48							40.0281 %
-	* MultiClassClassifier(OvR)xxx %
-	* MultiClassClassifier(OvO)Out of memory!
-* Training time
-* Confusion matrix 
-* ROC, AUC ...
+* Our ML tool was **Weka Environment** which needed **Java** and **JDK** to avoid java executable issue. 
+	* Weka Environment for Knowledge Analysis Version 3.8.0
+	* Java version "1.8.0_121"
+	* Java(TM) SE Runtime Environment (build 1.8.0_121-b13)
+	* Java HotSpot(TM) 64-Bit Server VM (build 25.121-b13, mixed mode)
+
+* We split the training data into **66.0% for training and the remainder for testing**. We didn't compute the k-fold cross-validation since the training data was too large. 
+All the results are shown in the table below.
 
 <center>
 <table border="1" align="center">
-<tr> <td>第1列第1行</td> <td>第1列第2行</td> </tr>
-<tr> <td>第2列第1行</td> <td>第2列第2行</td> </tr>
-<tr> <td>第3列第1行</td> <td>第3列第2行</td> </tr>
+<tr align="center"> <td>**Models**</td> <td>**The Old Method**</td> <td>**The New Method**</td> </tr>
+<tr align="center"> <td>Naïve Bayes</td> <td>63.3365 %</td> <td>???</td> </tr>
+<tr align="center"> <td>IBk (k=1501) </td> <td>31.7533 %</td> <td>30.8364 %</td> </tr>
+<tr align="center"> <td>SMO</td> <td>xxx %</td> <td>73.2382 %</td> </tr>
+<tr align="center"> <td>Multilayer Perceptron</td> <td>??? % (green)</td> <td>??? % (blue)</td> </tr>
+<tr align="center"> <td>J48</td> <td>64.2387 %</td> <td>40.0281 %</td> </tr>
+<tr align="center"> <td>One-against-all</td> <td>??? % (orange)</td> <td>xxx %</td> </tr>
+<tr align="center"> <td>One-against-one</td> <td>??? % (pink)</td> <td>Out of memory</td> </tr>
 </table>
 </center>
+Running time?
+
+* Kappa statistic ≈ 1? ROC area ≈ 1? MAE?
+	Show only the real results of SMO from Kaggle. 
+	Present the quantities we focused and the meaning of each for other models.
+* Confusion matrix ? Show only the real results of SMO from Kaggle.
 
 ### Kaggle score
 * Old: Top 1000, S=???
@@ -401,7 +265,7 @@ The 1001th attribute in the file test\_weka\_pca1000.arff needed to be modified 
 	* Old method: We've tried Top 200 ing. + ing_len (normalized) -> Not good enough.
 	* New method: We've tried PCA 2000 (normalized) -> Out of memory. 
 * Why did we choose 66 % instead of k-fold validation? The data is too large.
-* Why did we choose those models?
+* Why did we choose those models? All the parameters are default except extra discriptions.  
 * The parameter K of KNN was taken as K=1501 due to the reference. Actually, we made a KNN algorithm ourselves with some specific distance and K=21 created a better result! (Screen Shot of Kaggle score)
 You can find the code also in our GitHub site.
 	* [https://github.com/alicia6174/Kaggle-Whats-Cooking]
@@ -418,30 +282,16 @@ You can find the code also in our GitHub site.
 -->
 
 ## Appendix
-<!--
-### Coding
-* You can find all the codes in this site. [https://github.com/alicia6174/Kaggle-Whats-Cooking] 
-* Please contact me if you have any question.
-<yhguan8128@gmail.com>
-
-[https://github.com/alicia6174/Kaggle-Whats-Cooking]: https://github.com/alicia6174/Kaggle-Whats-Cooking 
--->
-
 ### How to use Weka
-Version of Weka.
-
-* 3.8.0
-* Need to install Java
-
 Sketch the steps.
 
 * Transform training data to a csv file. * Try several multi-class classifications and choose features (ex. #(ing.) for each cuisine).* Compute the accuracy and cross validation.* Choose a model to test. ex. J48, KNN, PLA, Bayes...
 
 Formal steps.* Create a new csv data file (in a needed form).* Convert it to UTF8 encoding. (use instruction in vim [A]).* Convert it into train and test arff files (Hsin’s shell-script [A]).* Train train.arff  by xxx on Weka, analyze the data (MAE, ROC…), and save xxx.model.* Test test.arff by the model, and save result_xxx.txt.* Convert result_xxx.txt to result_xxx.csv.
 
-### How to use Automatic Weka & & Version of AutoWekaVersion of Weka.* For the newest Weka 3.8.0 and Auto-Weka 2.5, it needs to install Java and JDK and type the specific instruction to avoid java executable issue. Sketch the steps.
+<!--
+### How to use Automatic WekaVersion of AutoWeka.Sketch the steps.-->
 
-* ...
 ## References
 <!--
 1. P. Hall *et al.* Choice of neighbor order in nearest-neighbor classification. *Ann. Stat.*, 36(5):2135-2152, 2008.
@@ -456,7 +306,6 @@ Formal steps.* Create a new csv data file (in a needed form).* Convert it to 
 
 <!-- §1. 寫完§2,3,4後Introduction需要修正 -->
 <!-- §2,3. 加上每個演算法的選取參數！create\_eigVec.pl與create\_eigVal.pl檢查是否正確！ -->
-<!-- 表格變色了...-->
 <!-- 新的section新起一頁？ -->
-<!-- 參考資料recheck, 目錄, 頁碼, 與插圖？ -->
+<!-- Ref(PCA Score, KNN's K), 目錄, 頁碼, 與插圖？ -->
 <!-- 重要的:為何只看ROC, AUC...?  -->
