@@ -363,7 +363,7 @@ We explain the reasons of some choices at first.
 * All the parameters in the models remained as the default except the number of nearest neighbors $k$ in IBk. We chose $k=199$ since the ideal value of $k$ is the root square of the number of training instances.
 $$\sqrt{39774} \approx 199.43$$
 
-Now we discuss about the results of the experiments.
+Now we discuss about the results of our experiments.
 
 * The file size of the training data of PCA method (187M) is almost twice larger than the one of Top-ing method (81M). This result is due to the reason we rounded the data values of PCA method to the second decimal. This observation also holds for testing data (48.7M vs 21.2M).
 * The Top-ing method worked better than the PCA method. Why??? (Try to explain this in the aspect of the quantities in §4)
@@ -378,8 +378,7 @@ where $x_i$ means the $i$th training data. We dealt with the raw data directly a
 You can find the code ``My_KNN.py`` also in the GitHub site.
 	* [https://github.com/alicia6174/Kaggle-Whats-Cooking]
 
-* This competition 
-* Future work - Text mining, Compressed sensing, Factorization Machines (2010), Latent Dirichlet Allocation.
+* This competition can be categorized as a **text mining** problem. The future work  would concentrate on **Compressed Sensing**, **Hidden Markov Model**, and **Latent Dirichlet Allocation**.
 
 ## Appendix
 ### How to use Weka
@@ -412,7 +411,6 @@ We only put the results of SMO here since SMO served as the bset model.
 
 <!-- §1. Recheck. 把五大步驟裡的文章結構拿到外面寫. 加寫兩個方法的動機: Top ing. \& PCA (後面方法均改名為這樣不要叫新舊方法). -->
 <!-- §2,3. create\_eigVec.pl與create\_eigVal.pl檢查是否正確！ -->
-<!-- 把上傳的檔案放在GitHub. -->
 <!-- 新的section新起一頁？ -->
 <!-- Ref(PCA Score, KNN's K), 目錄, 頁碼, 與插圖？ -->
 
