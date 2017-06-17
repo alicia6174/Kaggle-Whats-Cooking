@@ -43,10 +43,10 @@ There are totally 20 kinds of cuisines.
 
 <center>
 <table border="1" align="center">
-<tr> <td>irish</td> <td>mexican</td> <td>chinese</td> <td>filipino</td> <td>vietnamese</td> </tr>
-<tr> <td>moroccan</td> <td>brazilian</td> <td>japanese</td> <td>british</td> <td>greek</td> </tr>
-<tr> <td>indian</td> <td>jamaican</td> <td>french</td> <td>spanish</td> <td>russian</td> </tr>
-<tr> <td>cajun\_creole</td> <td>thai</td> <td>southern_us</td> <td>korean</td> <td>italian</td> </tr>
+<tr align="center"> <td>irish</td> <td>mexican</td> <td>chinese</td> <td>filipino</td> <td>vietnamese</td> </tr>
+<tr align="center"> <td>moroccan</td> <td>brazilian</td> <td>japanese</td> <td>british</td> <td>greek</td> </tr>
+<tr align="center"> <td>indian</td> <td>jamaican</td> <td>french</td> <td>spanish</td> <td>russian</td> </tr>
+<tr align="center"> <td>cajun\_creole</td> <td>thai</td> <td>southern_us</td> <td>korean</td> <td>italian</td> </tr>
 </table>
 </center>
 
@@ -63,6 +63,16 @@ There are totally 20 kinds of cuisines.
 -->
 
 After an initial step of statistics, some basic summaries about data are given below.
+
+<center>
+<table border="1" align="center">
+<tr align="center"> <td>**Number of training instances**</td> <td>39774</td> </tr>
+<tr align="center"> <td>**Number of testing instances**</td> <td>9944</td> </tr>
+<tr align="center"> <td>**Total number of ingregients in training data**</td> <td>6714</td> </tr>
+</table>
+</center>
+
+<!--
 <center>
 
 | Number of training instances | 39774  |
@@ -71,6 +81,7 @@ After an initial step of statistics, some basic summaries about data are given b
 | **Total number of ingregients in training data** | **6714** |
 
 </center>
+-->
 
 <!--
 | **Length of longest list of ingregients in training data** | **65** |
@@ -78,6 +89,17 @@ After an initial step of statistics, some basic summaries about data are given b
 -->
 
 The submission needs to be saved as a csv file of this form.
+
+<center>
+<table border="1" align="center">
+<tr align="center"> <td>**id**</td> <td>**cuisine**</td> </tr>
+<tr align="center"> <td>18009</td> <td>italian</td> </tr>
+<tr align="center"> <td>35203</td> <td>chinese</td> </tr>
+<tr align="center"> <td>$\vdots$</td> <td>$\vdots$</td> </tr>
+</table>
+</center>
+
+<!--
 <center>
 
 | id | cuisine |
@@ -87,6 +109,7 @@ The submission needs to be saved as a csv file of this form.
 | ... | ... |
 
 </center>
+-->
 
 Obviously, this competition is a **supervised problem** of **multi-class classification**. There are several kinds of applicable classifiers.
 
@@ -142,6 +165,17 @@ Detailed steps.
 * **Dimension reduction** - The old method collected the **top ingredients** which occur most frequently in the training data as the features. To compare with our method, we chose the number of features to be $1000$. In that way, each data could be transformed into a $1000$-dimensional vector with the $i$th component being $1$ if its ingredients contain the $i$th feature and being $0$ if otherwise. The training data matrix of size $39774 \times 1000$ (without the header and labels) had this form and was saved as a csv file.
 
 <center>
+<table border="1" align="center">
+<tr align="center"> <td>**1**</td> <td>**2**</td> <td>$\ldots\ldots$</td> <td>**1000**</td> <td>**cuisine**</td> </tr>
+<tr align="center"> <td>0</td> <td>0</td> <td>$\ldots\ldots$</td> <td>0</td> <td>greek</td> </tr>
+<tr align="center"> <td>1</td> <td>0</td> <td>$\ldots\ldots$</td> <td>0</td> <td>southern_us</td> </tr>
+<tr align="center"> <td>$\vdots$</td> <td>$\vdots$</td> <td>$\ldots\ldots$</td> <td>$\vdots$</td> <td>$\vdots$</td> </tr>
+<tr align="center"> <td>0</td> <td>1</td> <td>$\ldots\ldots$</td> <td>1</td> <td>mexican</td> </tr>
+</table>
+</center>
+
+<!--
+<center>
 
 | 1 | 2 | $\ldots\ldots$ | 1000 | cuisine |
 | :---: | :---: | :---: | :---: | :---: |
@@ -151,13 +185,32 @@ Detailed steps.
 | 0 | 1 | $\ldots\ldots$ | 1 | mexican |
 
 </center>
+-->
  
 * **Modeling** - We converted the csv file into an arff file so that the Weka environment would work more smoothly. We tried several multi-class classifiers for comparison. According to the evaluation (see §4), we saved the best model   **SMO** to make predictions.
 
 * **Prediction** - We repeated the steps of preprocessing and file conversion to create the arff file of testing data. Then we used Weka again to predict the result. Finally, we saved the result as a needed submission file and uploaded it on the Kaggle site for scoring.
 
 * Matrix???
-### Detailed steps<center>
+### Detailed steps
+<center>
+<table border="1" align="center">
+<tr align="left"> <td>**Codes \& ML Tool**</td> <td>**Created files**</td> <td>**Goals**</td> </tr>
+<tr align="left"> <td>prefix\_filter</td> <td>train.json</td> <td>delete special characters</td> </tr>
+<tr align="left"> <td>create\_top\_ing.py</td> <td>ing\_top1000.csv</td> <td>find top 1000 ingredietns</td> </tr>
+<tr align="left"> <td>create_weka.py</td> <td>train\_weka\_top1000.csv **(81M)**</td> <td>create the reduced training data for modeling</td> </tr>
+<tr align="left"> <td>weka-csv-arff.pl</td> <td>train\_weka\_top1000.arff</td> <td>convert to arff file</td> </tr>
+<tr align="left"> <td>Weka</td> <td></td> <td>create models and make evaluations</td> </tr>
+<tr align="left"> <td>Weka</td> <td>train\_weka\_top1000\_SMO.model</td> <td>create the model of SMO</td> </tr>
+<tr align="left"> <td>prefix\_filter</td> <td>test.json</td> <td>delete special characters</td> </tr>
+<tr align="left"> <td>create\_weka.py</td> <td>test\_weka\_top1000.csv **(21.2M)**</td> <td>create the reduced testing data for prediction</td> </tr>
+<tr align="left"> <td>weka-csv-arff.pl</td> <td>test\_weka\_top1000.arff</td> <td>convert to arff file</td> </tr>
+<tr align="left"> <td>Weka</td> <td>test\_weka\_top1000\_SMO.txt</td> <td>make predictions</td> </tr>
+<tr align="left"> <td>weka-to-kaggle.pl</td> <td>test\_weka\_top1000\_SMO.csv</td> <td>create the submission file for Kaggle</td> </tr>
+</table>
+</center>
+
+<!--<center>
 | Coding files \& ML Tools | Created files | Goals |
 | :--- | :--- | :--- |
 | prefix\_filter | train.json | delete special characters |
@@ -173,6 +226,7 @@ Detailed steps.
 | weka-to-kaggle.pl | test\_weka\_top1000\_SMO.csv | create the submission file for Kaggle |
 
 </center>
+-->
 
 The 1001th attribute in the file test\_weka\_top1000.arff needs to be modified to the $20$ cuisines before testing.
 
@@ -196,6 +250,17 @@ $$
 The reduced training data matrix of size $39774 \times 1000$ (without the header and labels) had this form and was saved as a csv file.
 
 <center>
+<table border="1" align="center">
+<tr align="center"> <td>**1**</td> <td>**2**</td> <td>$\ldots\ldots$</td> <td>**1000**</td> <td>**cuisine**</td> </tr>
+<tr align="center"> <td>0.71</td> <td>0.34</td> <td>$\ldots\ldots$</td> <td>0.45</td> <td>greek</td> </tr>
+<tr align="center"> <td>0.49</td> <td>0.57</td> <td>$\ldots\ldots$</td> <td>0.47</td> <td>southern_us</td> </tr>
+<tr align="center"> <td>$\vdots$</td> <td>$\vdots$</td> <td>$\ldots\ldots$</td> <td>$\vdots$</td> <td>$\vdots$</td> </tr>
+<tr align="center"> <td>0.30</td> <td>0.30</td> <td>$\ldots\ldots$</td> <td>0.47</td> <td>mexican</td> </tr>
+</table>
+</center>
+
+<!--
+<center>
 
 | 1 | 2 | $\ldots\ldots$ | 1000 | cuisine |
 | :---: | :---: | :---: | :---: | :---: |
@@ -205,11 +270,23 @@ The reduced training data matrix of size $39774 \times 1000$ (without the header
 | 0.30 | 0.30 | $\ldots\ldots$ | 0.47 | mexican 
 
 </center>
+-->
 
 * **Modeling** - This step was conducted almost in the same way as in the section 2. The main difference was that **SMO** still served as the best model after evaluation (see §4).
 
 * **Prediction** - We conducted the same step of dimension reduction to obtain the reduced testing data matrix. The reduced testing data matrix of size $9944 \times 1000$ (without the header and labels) had this form and was saved as a csv file. The following steps was conducted in the same way as in the section 2.
 
+<center>
+<table border="1" align="center">
+<tr align="center"> <td>**1**</td> <td>**2**</td> <td>$\ldots\ldots$</td> <td>**1000**</td> <td>**cuisine**</td> </tr>
+<tr align="center"> <td>0.83</td> <td>0.67</td> <td>$\ldots\ldots$</td> <td>0.52</td> <td>?</td> </tr>
+<tr align="center"> <td>0.93</td> <td>0.63</td> <td>$\ldots\ldots$</td> <td>0.53</td> <td>?</td> </tr>
+<tr align="center"> <td>$\vdots$</td> <td>$\vdots$</td> <td>$\ldots\ldots$</td> <td>$\vdots$</td> <td>$\vdots$</td> </tr>
+<tr align="center"> <td>0.70</td> <td>0.20</td> <td>$\ldots\ldots$</td> <td>0.47</td> <td>?</td> </tr>
+</table>
+</center>
+
+<!--
 <center>
 
 | 1 | 2 | $\ldots\ldots$ | 1000 | cuisine |
@@ -220,8 +297,34 @@ The reduced training data matrix of size $39774 \times 1000$ (without the header
 | 0.70 | 0.20 | $\ldots\ldots$ | 0.47 | ? | 
 
 </center>
+-->
 
 ### Detailed steps
+<center>
+<table border="1" align="center">
+<tr align="left"> <td>**Codes \& ML Tool**</td> <td>**Created files**</td> <td>**Goals**</td> </tr>
+<tr align="left"> <td>prefix\_filter</td> <td>train.json</td> <td>delete special characters</td> </tr>
+<tr align="left"> <td>create\_top\_ing.py</td> <td>ing.csv</td> <td>find all the 6714 ingredients</td> </tr>
+<tr align="left"> <td>create\_mtx.py</td> <td>train\_mtx.csv</td> <td>create the training data matrix of size 39774 x 6714</td> </tr>
+<tr align="left"> <td>do\_pca.cpp</td> <td>eigVal\_eiglVec</td> <td>find the PCs and eigenvalues of the above matrix</td> </tr>
+<tr align="left"> <td>create\_eigVec.pl</td> <td>eigVec</td> <td>divide the file eigVal\_eiglVec into eigVec and eigVal</td> </tr>
+<tr align="left"> <td>create\_eigVal.pl</td> <td>eigVal</td> <td>divide the file eigVal\_eiglVec into eigVec and eigVal</td> </tr>
+<tr align="left"> <td>create\_pca_mtx.m</td> <td>train\_pca\_mtx\_1000.csv</td> <td>create the reduced training data matrix of size 39774 x 1000 by matrix mutiplication</td> </tr>
+<tr align="left"> <td>create\_weka.py</td> <td>train\_weka\_pca1000.csv **(187M)**</td> <td>create the reduced training data for modeling </td> </tr>
+<tr align="left"> <td>weka-csv-arff.pl</td> <td>train\_weka\_pca1000.arff</td> <td>convert to arff file</td> </tr>
+<tr align="left"> <td>Weka</td> <td></td> <td>create models and make evaluations</td> </tr>
+<tr align="left"> <td>Weka</td> <td>train\_weka\_pca1000\_SMO.model</td> <td>create the model of SMO</td> </tr>
+<tr align="left"> <td>prefix\_filter</td> <td>test.json</td> <td>delete special characters</td> </tr>
+<tr align="left"> <td>create\_mtx.py</td> <td>test\_mtx.csv</td> <td>create the testing data matrix of size 9944 x 6714</td> </tr>
+<tr align="left"> <td>create\_pca\_mtx.m</td> <td>test\_pca\_mtx\_1000.csv</td> <td>create the reduced testing data matrix of size 9944 x 1000 by matrix mutiplication</td> </tr>
+<tr align="left"> <td>create\_weka.py</td> <td>test\_weka\_pca1000.csv **(48.7M)**</td> <td>create the reduced testing data for prediction</td> </tr>
+<tr align="left"> <td>weka-csv-arff.pl</td> <td>test\_weka\_pca1000.arff</td> <td>convert to arff file</td> </tr>
+<tr align="left"> <td>Weka</td> <td>test\_weka\_pca1000\_SMO.txt</td> <td>make predictions</td> </tr>
+<tr align="left"> <td>weka-to-kaggle.pl</td> <td>test\_weka\_pca1000\_SMO.csv</td> <td>create the submission file for Kaggle</td> </tr>
+</table>
+</center>
+
+<!--
 <center>
 
 | Coding files \& ML Tools | Created files | Goals |
@@ -246,6 +349,7 @@ The reduced training data matrix of size $39774 \times 1000$ (without the header
 | weka-to-kaggle.pl | test\_weka\_pca1000\_SMO.csv | create the submission file for Kaggle |
 
 </center>
+-->
 
 The 1001th attribute in the file test\_weka\_pca1000.arff needed to be modified to the 20 cuisines before testing.
 
@@ -270,7 +374,7 @@ The 1001th attribute in the file test\_weka\_pca1000.arff needed to be modified 
 	* Naïve Bayes					3x.xxx %
 	* IBk, k=1501					30.8364 % Take k=1501 for some reason
 	* SMO							73.2382 %
-	* MultilayerPerceptron		??? %
+	* MultilayerPerceptron		??? % (blue)
 	* J48							40.0281 %
 	* MultiClassClassifier(OvR)xxx %
 	* MultiClassClassifier(OvO)Out of memory!
