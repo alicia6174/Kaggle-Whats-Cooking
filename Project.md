@@ -1,6 +1,6 @@
 &nbsp; <p>
 &nbsp; <p>
-# <center> Machine Learning Kaggle Project </center>
+# <center> Final Project on Kaggle Competition </center>
 # <center> What's Cooking </center>
 &nbsp; <p>
 &nbsp; <p>
@@ -40,6 +40,17 @@ And, each testing instance is represented in the format of JSON.
 ``` 
   
 There are totally 20 kinds of cuisines.
+
+<center>
+<table border="1" align="center">
+<tr> <td>irish</td> <td>mexican</td> <td>chinese</td> <td>filipino</td> <td>vietnamese</td> </tr>
+<tr> <td>moroccan</td> <td>brazilian</td> <td>japanese</td> <td>british</td> <td>greek</td> </tr>
+<tr> <td>indian</td> <td>jamaican</td> <td>french</td> <td>spanish</td> <td>russian</td> </tr>
+<tr> <td>cajun\_creole</td> <td>thai</td> <td>southern_us</td> <td>korean</td> <td>italian</td> </tr>
+</table>
+</center>
+
+<!--
 <center>
 
 | irish | mexican | chinese | filipino | vietnamese |
@@ -49,6 +60,7 @@ There are totally 20 kinds of cuisines.
 | **cajun_creole** | **thai** | **southern_us** | **korean** | **italian** |
 
 </center>
+-->
 
 After an initial step of statistics, some basic summaries about data are given below.
 <center>
@@ -148,13 +160,13 @@ Detailed steps.
 ### Detailed steps<center>
 | Coding files \& ML Tools | Created files | Goals |
 | :--- | :--- | :--- |
-| prefixFilter | train.json | delete special characters |
+| prefix\_filter | train.json | delete special characters |
 | create\_top\_ing.py | ing\_top1000.csv | find top 1000 ingredietns |
 | create_weka.py | train\_weka\_top1000.csv **(81M)** | create the reduced training data for modeling |
 | weka-csv-arff.pl | train\_weka\_top1000.arff | convert to arff file | 
 | Weka |  | create models and make evaluations |
 | Weka | train\_weka\_top1000\_SMO.model | create the model of SMO |
-| prefixFilter | test.json | delete special characters |
+| prefix\_filter | test.json | delete special characters |
 | create\_weka.py | test\_weka\_top1000.csv **(21.2M)** | create the reduced testing data for prediction |
 | weka-csv-arff.pl | test\_weka\_top1000.arff | convert to arff file |
 | Weka | test\_weka\_top1000\_SMO.txt | make predictions |
@@ -214,8 +226,8 @@ The reduced training data matrix of size $39774 \times 1000$ (without the header
 
 | Coding files \& ML Tools | Created files | Goals |
 | :--- | :--- | :--- |
-| prefixFilter | train.json | delete special characters |
-| create_top_ing.py | ing.csv | find all the 6714 ingredients | 
+| prefix\_filter | train.json | delete special characters |
+| create\_top\_ing.py | ing.csv | find all the 6714 ingredients | 
 | create_mtx.py | train_mtx.csv | create the training data matrix of size 39774 x 6714 |
 | do\_pca.cpp | eigVal_eiglVec | find the PCs and eigenvalues of the above matrix |
 | create\_eigVec.pl | eigVec | divide the file eigVal_eiglVec into eigVec and eigVal |
@@ -225,7 +237,7 @@ The reduced training data matrix of size $39774 \times 1000$ (without the header
 | weka-csv-arff.pl | train\_weka\_pca1000.arff | convert to arff file |
 | Weka |  | create models and make evaluations |
 | Weka | train\_weka\_pca1000\_SMO.model | create the model of SMO |
-| prefixFilter | test.json | delete special characters |
+| prefix\_filter | test.json | delete special characters |
 | create\_mtx.py | test\_mtx.csv | create the testing data matrix of size 9944 x 6714 |
 | create\_pca\_mtx.m | test\_pca\_mtx\_1000.csv | create the reduced testing data matrix of size 9944 x 1000 by matrix mutiplication |
 | create\_weka.py | test\_weka\_pca1000.csv **(48.7M)** | create the reduced testing data for prediction |
@@ -251,7 +263,7 @@ The 1001th attribute in the file test\_weka\_pca1000.arff needed to be modified 
 	* MultilayerPerceptron		??? %
 	* J48							64.2387 %
 	* MultiClassClassifier(OvR)??? %
-	* MultiClassClassifier(OvO)???
+	* MultiClassClassifier(OvO)??? % (pink)
 
 	New method:
 	
@@ -260,11 +272,19 @@ The 1001th attribute in the file test\_weka\_pca1000.arff needed to be modified 
 	* SMO							73.2382 %
 	* MultilayerPerceptron		??? %
 	* J48							40.0281 %
-	* MultiClassClassifier(OvR)??? % (pink)
+	* MultiClassClassifier(OvR)xxx %
 	* MultiClassClassifier(OvO)Out of memory!
 * Training time
 * Confusion matrix 
 * ROC, AUC ...
+
+<center>
+<table border="1" align="center">
+<tr> <td>第1列第1行</td> <td>第1列第2行</td> </tr>
+<tr> <td>第2列第1行</td> <td>第2列第2行</td> </tr>
+<tr> <td>第3列第1行</td> <td>第3列第2行</td> </tr>
+</table>
+</center>
 
 ### Kaggle score
 * Old: Top 1000, S=???
@@ -327,12 +347,11 @@ Formal steps.* Create a new csv data file (in a needed form).* Convert it to 
 2. Y.-J. Lee, Y.-R. Yeh, and H.-K. Pao. Introduction to Support Vector Machines and Their Applications in Bankruptcy Prognosis. *Handbook of Computational Finance*, 731-761, 2012.
 [2]: https://link.springer.com/chapter/10.1007%2F978-3-642-17254-0_27
 
-3. 袁梅宇. *王者歸來：WEKA機器學習與大數據聖經 3/e.* 佳魁資訊, 2016.
+3. 袁梅宇. *王者歸來：WEKA機器學習與大數據聖經 3/e.* 佳魁資訊, 台北市, 2016.
 [3]: https://www.tenlong.com.tw/products/9789863794578 
 
 <!-- §1. 寫完§2,3,4後Introduction需要修正 -->
-<!-- §2,3. 重新命名檔案！加上每個演算法的選取參數！有底線的地方要打成"\_"! create\_eigVec.pl與create\_eigVal.pl檢查是否正確！ -->
-<!-- §5. KNN與其他方法資料型態不一樣且沒有evaluation的部分 -> 了解各方法的細節看如何寫比較好且補足需要的部分或者乾脆省略 -->
+<!-- §2,3. 加上每個演算法的選取參數！create\_eigVec.pl與create\_eigVal.pl檢查是否正確！ -->
 <!-- 表格變色了...-->
 <!-- 新的section新起一頁？ -->
 <!-- 參考資料recheck, 目錄, 頁碼, 與插圖？ -->
