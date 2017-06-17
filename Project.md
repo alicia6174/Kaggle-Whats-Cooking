@@ -348,12 +348,12 @@ The Kappa statistic and MAE are shown in the following table. The results of AUC
 </center>
 
 ### Kaggle score
-The detailed process of testing are described in the sections 2 \& 3. The followings are the Kaggle scores.
+The detailed process of testing are described in the sections 2 \& 3. The followings are the final results.
 
-* Top-ing Method 
-<center> <img src="./pictures/test_weka_top1000_SMO" width="80%" /> </center>
-* PCA Method
-<center> <img src="./pictures/test_weka_pca1000_SMO" width="80%" /> </center>
+* Top-ing Method **0.75030** 
+<center> <img src="./pictures/test_weka_top1000_SMO.png" width="80%" /> </center>
+* PCA Method **0.66020**
+<center> <img src="./pictures/test_weka_pca1000_SMO.png" width="80%" /> </center>
 
 ## 5. Discussion and conclusion
 * The file size 81M vs. 187M due to the float type of PCA data.
