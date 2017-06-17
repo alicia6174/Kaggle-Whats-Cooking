@@ -257,7 +257,7 @@ We split the training data into **66.0% for training and the remainder for testi
 <td>**The New Method**</td> 
 </tr>
 <tr align="center"> 
-<td>IBk (k=1501) </td> 
+<td>IBk (k=199) </td> 
 <td>31.7533 <p> 3093.23</td> 
 <td>30.8364 <p> 3451.79</td> 
 </tr>
@@ -356,28 +356,30 @@ The detailed process of testing are described in the sections 2 \& 3. The follow
 <center> <img src="./pictures/test_weka_pca1000_SMO.png" width="80%" /> </center>
 
 ## 5. Discussion and conclusion
-We explain some reasons of choices at first.
+We explain the reasons of some choices at first.
 
 * We chose the number of features to be 1000 which has been explained in the section 3. On the other hand, we've tried 200 features for Top-ing method, but the result was not good. We've also tried 2000 features for PCA method, but our machines ran out of memory.
-* We chose the models IBk, Naïve Bayes, J48, and SMO since they works for multi-class classification problem as we mentioned in the introduction. All the parameters remained unchanged
-* All the parameters are default except extra discriptions. We've also run OvR, OvO, and Multilayer Perceptron. They all costed over one day, so we didn't wait for the results.
+* We chose the models IBk, Naïve Bayes, J48, and SMO since they works for multi-class classification problem as we mentioned in the introduction. We've ever tried OvR, OvO, and Multilayer Perceptron. We didn't wait for the results because they all costed over one day.
+* All the parameters in the models remained as the default except the number of nearest neighbors $k$ in IBk. We chose $k=199$ since the ideal value of $k$ is the root square of the number of training instances.
+$$\sqrt{39774} \approx 199.43$$
 
-* The file size 81M vs. 187M due to the float type of PCA data.
+Now we discuss about the results of the experiments.
 
-* The parameter K of KNN was taken as K=1501 due to the reference. Actually, we made a KNN algorithm ourselves with some specific distance and K=21 created a better result! (Screen Shot of Kaggle score)
-You can find the code also in our GitHub site.
+* The file size of the training data of PCA method (187M) is almost twice larger than the one of Top-ing method (81M). This result is due to the reason we rounded the data values of PCA method to the second decimal. This observation also holds for testing data (48.7M vs 21.2M).
+* The Top-ing method worked better than the PCA method. Why??? (Try to explain this in the aspect of the quantities in §4)
+
+Finally, we end this project with some expectations and future work. 
+
+* We actually made a KNN algorithm ourselves with the distance defined by
+$$d(x_i,x_j) =\; \textrm{number of different ingredients of $x_i$ and $x_j$}$$
+where $x_i$ means the $i$th training data. We dealt with the raw data directly and chose $k=21$ (chosen by tuning). This simple method created the better result than the one of PCA method.  
+	* My KNN **0.67659**
+<center> <img src="./pictures/My_KNN_K21.png" width="80%" /> </center>
+You can find the code ``My_KNN.py`` also in the GitHub site.
 	* [https://github.com/alicia6174/Kaggle-Whats-Cooking]
-* The reslut of the new method seemed the same as the old one. We don't know why.. 
-* Future work - Text mining, Compressed sensing, Factorization Machines (2010), Latent Dirichlet Allocation.
 
-<!--
-* KNN: d(id1,id2) = #{ing(id1) \neq ing(id2)}
-	* Preprocessing -> none
-	* Dimension reduction -> none
-	* Training
-	* Tuning -> How to choose K? 
-	* Testing -> Best K=21, S=0.67659
--->
+* This competition 
+* Future work - Text mining, Compressed sensing, Factorization Machines (2010), Latent Dirichlet Allocation.
 
 ## Appendix
 ### How to use Weka
