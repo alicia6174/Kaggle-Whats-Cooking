@@ -238,16 +238,21 @@ All the results are shown in the table below.
 <center>
 <table border="1" align="center">
 <tr align="center"> <td>**Models**</td> <td>**The Old Method**</td> <td>**The New Method**</td> </tr>
-<tr align="center"> <td>Naïve Bayes</td> <td>63.3365 %</td> <td>???</td> </tr>
+<tr align="center"> <td>Naïve Bayes</td> <td>63.3365 %</td> <td>xxx %</td> </tr>
 <tr align="center"> <td>IBk (k=1501) </td> <td>31.7533 %</td> <td>30.8364 %</td> </tr>
 <tr align="center"> <td>SMO</td> <td>xxx %</td> <td>73.2382 %</td> </tr>
-<tr align="center"> <td>Multilayer Perceptron</td> <td>??? % (green)</td> <td>??? % (blue)</td> </tr>
+<tr align="center"> <td>Multilayer Perceptron</td> <td>green 27hr</td> <td>blue 30hr</td> </tr>
 <tr align="center"> <td>J48</td> <td>64.2387 %</td> <td>40.0281 %</td> </tr>
-<tr align="center"> <td>One-against-all</td> <td>??? % (orange)</td> <td>xxx %</td> </tr>
-<tr align="center"> <td>One-against-one</td> <td>??? % (pink)</td> <td>Out of memory</td> </tr>
+<tr align="center"> <td>One-against-all</td> <td>orange 27.5hr</td> <td>xxx %</td> </tr>
+<tr align="center"> <td>One-against-one</td> <td>pink 27hr</td> <td>Out of memory</td> </tr>
 </table>
 </center>
+66% Percentage Split Correctness
+Old: NB, IBk, SMO, J48
+New: NB, IBk, SMO??? J48, OvR
 Running time?
+orange: 56670.79 s 
+pink: 17544.3 s
 
 * Kappa statistic ≈ 1? ROC area ≈ 1? MAE?
 	Show only the real results of SMO from Kaggle. 
@@ -255,7 +260,7 @@ Running time?
 * Confusion matrix ? Show only the real results of SMO from Kaggle.
 
 ### Kaggle score
-* Old: Top 1000, S=???
+* Old: Top 1000, S=??? (pink)
 * New: PCs 1000, S=0.66020
 * Screen Shot of Kaggle score
 
@@ -285,7 +290,7 @@ You can find the code also in our GitHub site.
 ### How to use Weka
 Sketch the steps.
 
-* Transform training data to a csv file. * Try several multi-class classifications and choose features (ex. #(ing.) for each cuisine).* Compute the accuracy and cross validation.* Choose a model to test. ex. J48, KNN, PLA, Bayes...
+* Transform training data to a csv file. * Try several multi-class classifications and choose features (ex. #(ing.) for each cuisine). (Show the graph of feature distribution)* Compute the accuracy and cross validation.* Choose a model to test. ex. J48, KNN, PLA, Bayes...
 
 Formal steps.* Create a new csv data file (in a needed form).* Convert it to UTF8 encoding. (use instruction in vim [A]).* Convert it into train and test arff files (Hsin’s shell-script [A]).* Train train.arff  by xxx on Weka, analyze the data (MAE, ROC…), and save xxx.model.* Test test.arff by the model, and save result_xxx.txt.* Convert result_xxx.txt to result_xxx.csv.
 
@@ -304,7 +309,7 @@ Formal steps.* Create a new csv data file (in a needed form).* Convert it to 
 3. 袁梅宇. *王者歸來：WEKA機器學習與大數據聖經 3/e.* 佳魁資訊, 台北市, 2016.
 [3]: https://www.tenlong.com.tw/products/9789863794578 
 
-<!-- §1. 寫完§2,3,4後Introduction需要修正 -->
+<!-- §1. Recheck. 把五大步驟裡的文章結構拿到外面寫. 加寫兩個方法的動機. -->
 <!-- §2,3. 加上每個演算法的選取參數！create\_eigVec.pl與create\_eigVal.pl檢查是否正確！ -->
 <!-- 新的section新起一頁？ -->
 <!-- Ref(PCA Score, KNN's K), 目錄, 頁碼, 與插圖？ -->
