@@ -356,12 +356,14 @@ The detailed process of testing are described in the sections 2 \& 3. The follow
 <center> <img src="./pictures/test_weka_pca1000_SMO.png" width="80%" /> </center>
 
 ## 5. Discussion and conclusion
+We explain some reasons of choices at first.
+
+* We chose the number of features to be 1000 which has been explained in the section 3. On the other hand, we've tried 200 features for Top-ing method, but the result was not good. We've also tried 2000 features for PCA method, but our machines ran out of memory.
+* We chose the models IBk, Naïve Bayes, J48, and SMO since they works for multi-class classification problem as we mentioned in the introduction. All the parameters remained unchanged
+* All the parameters are default except extra discriptions. We've also run OvR, OvO, and Multilayer Perceptron. They all costed over one day, so we didn't wait for the results.
+
 * The file size 81M vs. 187M due to the float type of PCA data.
-* Why did we choose the number of features to be 1000? Score.pdf
-	* Old method: We've tried Top 200 ing. + ing_len (normalized) -> Not good enough.
-	* New method: We've tried PCA 2000 (normalized) -> Out of memory. 
-* Why did we choose 66 % instead of k-fold validation? The data is too large.
-* Why did we choose those models? All the parameters are default except extra discriptions. We've also run OvR, OvO, and Multilayer Perceptron. They all costed over one day, so we didn't wait for the results.
+
 * The parameter K of KNN was taken as K=1501 due to the reference. Actually, we made a KNN algorithm ourselves with some specific distance and K=21 created a better result! (Screen Shot of Kaggle score)
 You can find the code also in our GitHub site.
 	* [https://github.com/alicia6174/Kaggle-Whats-Cooking]
@@ -399,10 +401,10 @@ We only put the results of SMO here since SMO served as the bset model.
 1. P. Hall *et al.* Choice of neighbor order in nearest-neighbor classification. *Ann. Stat.*, 36(5):2135-2152, 2008.
 [1]: https://arxiv.org/pdf/0810.5276.pdf 
 -->
-
+<!--
 2. Y.-J. Lee, Y.-R. Yeh, and H.-K. Pao. Introduction to Support Vector Machines and Their Applications in Bankruptcy Prognosis. *Handbook of Computational Finance*, 731-761, 2012.
 [2]: https://link.springer.com/chapter/10.1007%2F978-3-642-17254-0_27
-
+-->
 3. 袁梅宇. *王者歸來：WEKA機器學習與大數據聖經 3/e.* 佳魁資訊, 台北市, 2016.
 [3]: https://www.tenlong.com.tw/products/9789863794578 
 
