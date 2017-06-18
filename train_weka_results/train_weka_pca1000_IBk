@@ -1,0 +1,81 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.lazy.IBk -K 199 -W 0 -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+Relation:     whatever
+Instances:    39774
+Attributes:   1001
+              [list of attributes omitted]
+Test mode:    split 66.0% train, remainder test
+
+=== Classifier model (full training set) ===
+
+IB1 instance-based classifier
+using 199 nearest neighbour(s) for classification
+
+
+Time taken to build model: 0.14 seconds
+
+=== Evaluation on test split ===
+
+Time taken to test model on test split: 2422.27 seconds
+
+=== Summary ===
+
+Correctly Classified Instances        4910               36.3085 %
+Incorrectly Classified Instances      8613               63.6915 %
+Kappa statistic                          0.2233
+Mean absolute error                      0.0854
+Root mean squared error                  0.2021
+Relative absolute error                 94.8387 %
+Root relative squared error             95.2411 %
+Total Number of Instances            13523     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.069    0.000    1.000      0.069    0.130      0.262    0.814     0.292     brazilian
+                 0.013    0.000    1.000      0.013    0.025      0.111    0.892     0.359     filipino
+                 0.000    0.000    0.000      0.000    0.000      0.000    0.900     0.520     greek
+                 0.008    0.000    1.000      0.008    0.016      0.088    0.964     0.605     korean
+                 0.002    0.000    1.000      0.002    0.004      0.043    0.897     0.482     cajun_creole
+                 0.122    0.001    0.947      0.122    0.217      0.327    0.933     0.705     indian
+                 0.000    0.000    0.000      0.000    0.000      0.000    0.801     0.192     spanish
+                 0.004    0.000    1.000      0.004    0.009      0.066    0.872     0.333     irish
+                 0.000    0.000    0.000      0.000    0.000      0.000    0.818     0.250     jamaican
+                 0.000    0.000    0.000      0.000    0.000      0.000    0.881     0.247     vietnamese
+                 0.004    0.000    1.000      0.004    0.009      0.064    0.933     0.637     chinese
+                 0.000    0.000    0.000      0.000    0.000      0.000    0.809     0.163     russian
+                 0.000    0.000    0.000      0.000    0.000      0.000    0.893     0.500     thai
+                 0.000    0.000    0.000      0.000    0.000      0.000    0.790     0.132     british
+                 0.000    0.000    0.000      0.000    0.000      0.000    0.835     0.233     moroccan
+                 0.542    0.038    0.636      0.542    0.585      0.541    0.909     0.638     southern_us
+                 0.985    0.734    0.245      0.985    0.392      0.241    0.932     0.806     italian
+                 0.071    0.003    0.653      0.071    0.129      0.201    0.834     0.339     french
+                 0.200    0.000    0.990      0.200    0.333      0.439    0.913     0.605     japanese
+                 0.552    0.010    0.910      0.552    0.687      0.671    0.949     0.856     mexican
+Weighted Avg.    0.363    0.149    0.588      0.363    0.292      0.282    0.906     0.611     
+
+=== Confusion Matrix ===
+
+    a    b    c    d    e    f    g    h    i    j    k    l    m    n    o    p    q    r    s    t   <-- classified as
+   12    0    0    0    0    0    0    0    0    0    0    0    0    0    0   10  140    2    0    9 |    a = brazilian
+    0    3    0    0    0    0    0    0    0    0    0    0    0    0    0   11  224    0    0    2 |    b = filipino
+    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    6  397    1    0    0 |    c = greek
+    0    0    0    2    0    0    0    0    0    0    0    0    0    0    0    3  247    0    0    1 |    d = korean
+    0    0    0    0    1    0    0    0    0    0    0    0    0    0    0   75  444    2    0    6 |    e = cajun_creole
+    0    0    0    0    0  124    0    0    0    0    0    0    0    0    0   13  838    0    0   38 |    f = indian
+    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    4  335    1    0   19 |    g = spanish
+    0    0    0    0    0    0    0    1    0    0    0    0    0    0    0   69  155    0    0    1 |    h = irish
+    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0   17  164    0    0    8 |    i = jamaican
+    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    4  247    0    0    7 |    j = vietnamese
+    0    0    0    0    0    0    0    0    0    0    4    0    0    0    0   18  891    1    0    2 |    k = chinese
+    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0   11  139    0    0    0 |    l = russian
+    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0   18  546    0    1    7 |    m = thai
+    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0   64  212    5    0    0 |    n = british
+    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0    4  263    0    0    3 |    o = moroccan
+    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0  797  653    7    0   14 |    p = southern_us
+    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0   27 2595   11    0    1 |    q = italian
+    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0   37  796   64    0    1 |    r = french
+    0    0    0    0    0    7    0    0    0    0    0    0    0    0    0    8  387    1  101    0 |    s = japanese
+    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0   58  917    3    0 1206 |    t = mexican
+

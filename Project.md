@@ -226,21 +226,21 @@ The 1001th attribute in the file test\_weka\_pca1000.arff needed to be modified 
 
 ## 4. Comparison results
 ### Evaluation
-Our devices were the **Virtual Machine Instances** on **Google Cloud Platform**. We applied for 4 virtual machines of this size. And we run these machiens simultaneously for convenience.
+Our devices were the **Virtual Machine Instances** on **Google Cloud Platform**. We applied for 2 virtual machines of this size.
 
 * OS: ubuntu16-04
 * HDD: 20G
 * CPU: 1 vCP
 * RAM: 6.5 GB
 
-We used the ML tool **Weka Environment** with the version shown below. In this project, we needed to modify the heap size to 4G. (The default size is 512M.)
+We used the ML tool **Weka Environment** with the version shown below. In this project, we needed to modify the heap size to 4G. (The default size was 512M.)
 	
 * Weka Environment for Knowledge Analysis Version 3.8.0
 * Java version "1.8.0_121"
 * Java(TM) SE Runtime Environment (build 1.8.0_121-b13)
 * Java HotSpot(TM) 64-Bit Server VM (build 25.121-b13, mixed mode)
 
-We split the training data into **66.0% for training and the remainder for testing**. We didn't compute the k-fold cross-validation since the training data was too large. The correctness and the running time are shown in the table below.
+We split the training data into **66.0% for training and the remainder for testing**. We didn't compute the k-fold cross-validation since the training data was too large. The correctness and the running time are shown in the table below. The running includes the time taken to build model and the time to test model on test split.
 
 <center>
 <table border="1" align="center">
@@ -252,27 +252,27 @@ We split the training data into **66.0% for training and the remainder for testi
 </tr>
 <tr align="center"> 
 <td>**Models**</td> 
-<td>**The Old Method**</td> 
-<td>**The New Method**</td> 
+<td>**Top-ing Method**</td> 
+<td>**PCA Method**</td> 
 </tr>
 <tr align="center"> 
 <td>IBk (k=199) </td> 
-<td>31.7533 <p> 3093.23</td> 
-<td>30.8364 <p> 3451.79</td> 
+<td>27.0206 <p> 1778.31</td> 
+<td>36.3085 <p> 2422.41</td> 
 </tr>
 <tr align="center"> 
 <td>Naïve Bayes</td> 
-<td>63.3365 <p> 92.67</td> 
+<td>62.6414 <p> 86.26</td> 
 <td>37.2846 <p> 55.37</td> 
 </tr>
 <tr align="center"> 
 <td>J48</td> 
-<td>64.2387 <p> 5337.63</td> 
+<td>63.5732 <p> 1353.21</td> 
 <td>40.0281 <p> 598.85</td> 
 </tr>
 <tr align="center"> 
 <td>SMO</td> 
-<td>73.3417 <p> 3140.75</td> 
+<td>72.4543 <p> 2871.48</td> 
 <td>73.2382 <p> 2401.43</td> 
 </tr>
 </table>
@@ -320,27 +320,27 @@ The Kappa statistic and MAE are shown in the following table. The results of AUC
 </tr>
 <tr align="center"> 
 <td>**Models**</td> 
-<td>**The Old Method**</td> 
-<td>**The New Method**</td> 
+<td>**Top-ing Method**</td> 
+<td>**PCA Method**</td> 
 </tr>
 <tr align="center"> 
-<td>IBk (k=1501) </td> 
-<td>0.1668 <p> 0.0842</td> 
+<td>IBk (k=199) </td> 
+<td>0.1039 <p> 0.0804</td> 
 <td>0.1480 <p> 0.0884</td> 
 </tr>
 <tr align="center"> 
 <td>Naïve Bayes</td> 
-<td>0.5934 <p> 0.0400</td> 
+<td>0.5861 <p> 0.0408</td> 
 <td>0.3340 <p> 0.0628</td> 
 </tr>
 <tr align="center"> 
 <td>J48</td> 
-<td>0.5998 <p> 0.0425</td> 
+<td>0.5916 <p> 0.0440</td> 
 <td>0.3351 <p> 0.0607</td> 
 </tr>
 <tr align="center"> 
 <td>SMO</td> 
-<td>0.7019 <p> 0.0905</td> 
+<td>0.6914 <p> 0.0905</td> 
 <td>0.7012 <p> 0.0905</td> 
 </tr>
 </table>
@@ -349,7 +349,7 @@ The Kappa statistic and MAE are shown in the following table. The results of AUC
 ### Kaggle score
 The detailed process of testing are described in the sections 2 \& 3. The followings are the final results.
 
-* Top-ing Method **0.75030** 
+* Top-ing Method **0.73994** 
 <center> <img src="./pictures/test_weka_top1000_SMO.png" width="80%" /> </center>
 * PCA Method **0.66020**
 <center> <img src="./pictures/test_weka_pca1000_SMO.png" width="80%" /> </center>
@@ -418,6 +418,6 @@ We only put the results of SMO here since SMO served as the bset model.
 <!-- train_weka_top1000.csv 79.9M -->
 <!-- test_weka_top1000.csv 19.9M --> 
 <!-- train_weka_pca1000_len.csv 195.5M -->
-<!-- Top-ing - IBk(k=199):???(1) NB:62.6414 J48:???(2) SMO:72... -->
-<!-- PCA - IBk(k=199):
-<!-- PCA+len - SMO: -->
+<!-- Top-ing - IBk(k=199):27.0206 NB:62.6414 J48:63.5732 SMO:72... -->
+<!-- PCA - IBk(k=199):36.3085
+<!-- PCA+len - SMO:???(1) -->
