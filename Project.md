@@ -89,7 +89,7 @@ There are five major steps of machine learning in this project.
 * **Visualization** - If we transform the training data into a sparse matrix full of $0$ and $1$ directly, the matrix will have the size of $39774 \times 6714$. To cope with this matrix more efficiently, we need **dimension reduction** to compress the size of matrix without losing too many varieties of data. **This step is the main difference between related work and our new method** which will be mentioned in the sections 2 \& 3.
 
 * **Modeling** - We chose **Weka** environment to create models. The detailed process of converting data matrix to the arff file for Weka environment will be mentioned also in the sections 2 \& 3. All the codes used in this project can be found in the GitHub.
-	* [https://github.com/alicia6174/Kaggle-Whats-Cooking]
+	* [https://github.com/alicia6174/Kaggle-Whats-Cooking](https://github.com/alicia6174/Kaggle-Whats-Cooking)
 
 	We skipped **tuning** in this project because we focused on comparing the results of two methods under different models.
 
@@ -140,12 +140,12 @@ These evidences showed that our method works better than the old one.
 <tr align="left"> <td>**Codes \& ML Tool**</td> <td>**Created files**</td> <td>**Goals**</td> </tr>
 <tr align="left"> <td>prefix\_filter</td> <td>train.json</td> <td>delete special characters</td> </tr>
 <tr align="left"> <td>create\_top\_ing.py</td> <td>ing\_top1000.csv</td> <td>find top 1000 ingredietns</td> </tr>
-<tr align="left"> <td>create_weka.py</td> <td>train\_weka\_top1000.csv **(81M)**</td> <td>create the reduced training data for modeling</td> </tr>
+<tr align="left"> <td>create_weka.py</td> <td>train\_weka\_top1000.csv **(79.9M)**</td> <td>create the reduced training data for modeling</td> </tr>
 <tr align="left"> <td>weka-csv-arff.pl</td> <td>train\_weka\_top1000.arff</td> <td>convert to arff file</td> </tr>
 <tr align="left"> <td>Weka</td> <td></td> <td>create models and make evaluations</td> </tr>
 <tr align="left"> <td>Weka</td> <td>train\_weka\_top1000\_SMO.model</td> <td>create the model of SMO</td> </tr>
 <tr align="left"> <td>prefix\_filter</td> <td>test.json</td> <td>delete special characters</td> </tr>
-<tr align="left"> <td>create\_weka.py</td> <td>test\_weka\_top1000.csv **(21.2M)**</td> <td>create the reduced testing data for prediction</td> </tr>
+<tr align="left"> <td>create\_weka.py</td> <td>test\_weka\_top1000.csv **(19.9M)**</td> <td>create the reduced testing data for prediction</td> </tr>
 <tr align="left"> <td>weka-csv-arff.pl</td> <td>test\_weka\_top1000.arff</td> <td>convert to arff file</td> </tr>
 <tr align="left"> <td>Weka</td> <td>test\_weka\_top1000\_SMO.txt</td> <td>make predictions</td> </tr>
 <tr align="left"> <td>weka-to-kaggle.pl</td> <td>test\_weka\_top1000\_SMO.csv</td> <td>create the submission file for Kaggle</td> </tr>
@@ -364,7 +364,7 @@ $$\sqrt{39774} \approx 199.43$$
 
 Now we discuss about the results of our experiments.
 
-* The file size of the training data of PCA method (187M) is almost twice larger than the one of Top-ing method (81M). This result is due to the reason we rounded the data values of PCA method to the second decimal. This observation also holds for testing data (48.7M vs 21.2M).
+* The file size of the training data of PCA method (187M) is almost twice larger than the one of Top-ing method (79.9M). This result is due to the reason we rounded the data values of PCA method to the second decimal. This observation also holds for testing data (48.7M vs. 19.9M).
 * The Top-ing method worked better than the PCA method. Why??? (Try to explain this in the aspect of the quantities in §4)
 
 Finally, we end this project with some expectations and future work. 
@@ -375,7 +375,7 @@ where $x_i$ means the $i$th training data. We dealt with the raw data directly a
 	* My KNN **0.67659**
 <center> <img src="./pictures/My_KNN_K21.png" width="80%" /> </center>
 You can find the code ``My_KNN.py`` also in the GitHub site.
-	* [https://github.com/alicia6174/Kaggle-Whats-Cooking]
+	* [https://github.com/alicia6174/Kaggle-Whats-Cooking](https://github.com/alicia6174/Kaggle-Whats-Cooking)
 
 * This competition can be categorized as a **text mining** problem. The future work  would concentrate on **Compressed Sensing**, **Hidden Markov Model**, and **Latent Dirichlet Allocation**.
 
@@ -410,14 +410,8 @@ We only put the results of SMO here since SMO served as the bset model.
 [3]: https://www.tenlong.com.tw/products/9789863794578 
 
 <!-- §1. Recheck. 把五大步驟裡的文章結構拿到外面寫. 加寫兩個方法的動機: Top ing. \& PCA (後面方法均改名為這樣不要叫新舊方法). -->
-<!-- §2,3. create\_eigVec.pl與create\_eigVal.pl檢查是否正確！ -->
-<!-- §5. My KNN 加上計算距離的code，註明是用原始資料算. 加上len分數更高. -->
-<!-- 將所有model結果txt檔放在GitHub. -->
+<!-- §2,3. create\_eigVec.pl與create\_eigVal.pl檢查是否正確！ 所有上傳檔(/submissions_files)均放在GitHub.-->
+<!-- §4. 所有Weka結果(/weka_train_results)均放在GitHub. -->
+<!-- §5. 加上len分數更高. My KNN 加上計算距離的code，註明是用原始資料算. 繼續多加特徵誒有意義，需要找更有效的方法(future work)，其實第一名83分. -->
 <!-- 新的section新起一頁？ -->
 <!-- Ref(PCA Score, KNN's K), 目錄, 頁碼, 與插圖？ -->
-<!-- train_weka_top1000.csv 79.9M -->
-<!-- test_weka_top1000.csv 19.9M --> 
-<!-- train_weka_pca1000_len.csv 195.5M -->
-<!-- Top-ing - IBk(k=199):27.0206 NB:62.6414 J48:63.5732 SMO:72... -->
-<!-- PCA - IBk(k=199):36.3085
-<!-- PCA+len - SMO:???(1) -->
