@@ -88,10 +88,9 @@ There are five major steps of machine learning in this project.
 
 * **Visualization** - If we transform the training data into a sparse matrix full of $0$ and $1$ directly, the matrix will have the size of $39774 \times 6714$. To cope with this matrix more efficiently, we need **dimension reduction** to compress the size of matrix without losing too many varieties of data. **This step is the main difference between related work and our new method** which will be mentioned in the sections 2 \& 3.
 
-* **Modeling** - We chose **Weka** environment to create models. The detailed process of converting data matrix to the valid file for Weka environment will be mentioned also in the sections 2 \& 3. All the codes used in this project can be found in the GitHub.
+* **Modeling** - We chose **Weka** environment to create models. The detailed process of converting data matrix to the arff file for Weka environment will be mentioned also in the sections 2 \& 3. All the codes used in this project can be found in the GitHub.
 	* [https://github.com/alicia6174/Kaggle-Whats-Cooking]
 
-	The instructions of how to use Weka will be described in the appendix.
 	We skipped **tuning** in this project because we focused on comparing the results of two methods under different models.
 
 <!--
@@ -380,6 +379,7 @@ You can find the code ``My_KNN.py`` also in the GitHub site.
 
 * This competition can be categorized as a **text mining** problem. The future work  would concentrate on **Compressed Sensing**, **Hidden Markov Model**, and **Latent Dirichlet Allocation**.
 
+<!--
 ## Appendix
 ### How to use Weka
 Sketch the steps.
@@ -388,14 +388,14 @@ Sketch the steps.
 
 Formal steps.* Create a new csv data file (in a needed form).* Convert it to UTF8 encoding. (use instruction in vim [A]).* Convert it into train and test arff files (Hsin’s shell-script [A]).* Train train.arff  by xxx on Weka, analyze the data (MAE, ROC…), and save xxx.model.* Test test.arff by the model, and save result_xxx.txt.* Convert result_xxx.txt to result_xxx.csv.
 
-<!--
-### How to use Automatic WekaVersion of AutoWeka.Sketch the steps.-->
 
+### How to use Automatic WekaVersion of AutoWeka.Sketch the steps.
 ### Detailed Accuracy By Class
 We only put the results of SMO here since SMO served as the bset model.
 
 ### Confusion Matrix
 We only put the results of SMO here since SMO served as the bset model.
+-->
 
 ## References
 <!--
@@ -411,92 +411,13 @@ We only put the results of SMO here since SMO served as the bset model.
 
 <!-- §1. Recheck. 把五大步驟裡的文章結構拿到外面寫. 加寫兩個方法的動機: Top ing. \& PCA (後面方法均改名為這樣不要叫新舊方法). -->
 <!-- §2,3. create\_eigVec.pl與create\_eigVal.pl檢查是否正確！ -->
+<!-- §5. My KNN 加上計算距離的code，註明是用原始資料算. 加上len分數更高. -->
+<!-- 將所有model結果txt檔放在GitHub. -->
 <!-- 新的section新起一頁？ -->
 <!-- Ref(PCA Score, KNN's K), 目錄, 頁碼, 與插圖？ -->
-
-<!--
-To include more details, we copy the original results of SMO here.
-
-```
-Top-ing Method
-TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
-0.491    0.005    0.570      0.491    0.528      0.524    0.893     0.362     brazilian
-0.556    0.002    0.789      0.556    0.652      0.658    0.908     0.538     jamaican
-0.730    0.006    0.714      0.730    0.722      0.716    0.956     0.605     moroccan
-0.862    0.016    0.814      0.862    0.837      0.824    0.978     0.787     indian
-0.451    0.010    0.547      0.451    0.495      0.485    0.859     0.321     spanish
-0.750    0.056    0.622      0.750    0.680      0.641    0.926     0.583     southern_us
-0.668    0.006    0.769      0.668    0.715      0.709    0.952     0.627     greek
-0.367    0.008    0.493      0.367    0.420      0.415    0.917     0.300     british
-0.788    0.017    0.768      0.788    0.778      0.762    0.962     0.707     chinese
-0.853    0.066    0.757      0.853    0.803      0.753    0.944     0.737     italian
-0.253    0.004    0.413      0.253    0.314      0.318    0.882     0.208     russian
-0.412    0.004    0.620      0.412    0.495      0.498    0.930     0.377     irish
-0.715    0.009    0.787      0.715    0.749      0.739    0.972     0.692     thai
-0.571    0.006    0.643      0.571    0.605      0.599    0.924     0.442     filipino
-0.759    0.004    0.803      0.759    0.780      0.777    0.982     0.697     korean
-0.875    0.023    0.878      0.875    0.877      0.853    0.968     0.845     mexican
-0.484    0.006    0.604      0.484    0.538      0.533    0.937     0.401     vietnamese
-0.663    0.009    0.758      0.663    0.707      0.698    0.940     0.616     cajun_creole
-0.543    0.033    0.542      0.543    0.543      0.510    0.908     0.406     french
-0.607    0.007    0.775      0.607    0.681      0.675    0.952     0.584     japanese
-0.733    0.029    0.731      0.733    0.729      0.705    0.944     0.647     Weighted Avg.
-
-```
-```
-PCA Method
-TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
-0.497    0.005    0.555      0.497    0.524      0.519    0.900     0.380     brazilian
-0.633    0.009    0.574      0.633    0.602      0.595    0.917     0.447     filipino
-0.658    0.009    0.691      0.658    0.674      0.665    0.948     0.588     greek
-0.767    0.004    0.798      0.767    0.782      0.778    0.977     0.709     korean
-0.701    0.011    0.723      0.701    0.712      0.700    0.939     0.622     cajun_creole
-0.878    0.017    0.811      0.878    0.843      0.831    0.975     0.782     indian
-0.429    0.011    0.524      0.429    0.472      0.461    0.854     0.310     spanish
-0.407    0.007    0.497      0.407    0.448      0.442    0.919     0.337     irish
-0.508    0.002    0.780      0.508    0.615      0.626    0.900     0.508     jamaican
-0.512    0.008    0.548      0.512    0.529      0.521    0.940     0.388     vietnamese
-0.774    0.016    0.783      0.774    0.779      0.763    0.962     0.711     chinese
-0.307    0.005    0.407      0.307    0.350      0.347    0.880     0.214     russian
-0.677    0.007    0.806      0.677    0.736      0.728    0.970     0.690     thai
-0.331    0.009    0.445      0.331    0.380      0.373    0.905     0.273     british
-0.659    0.004    0.771      0.659    0.711      0.707    0.957     0.618     moroccan
-0.757    0.050    0.651      0.757    0.700      0.663    0.929     0.596     southern_us
-0.852    0.064    0.763      0.852    0.805      0.756    0.942     0.738     italian
-0.556    0.031    0.564      0.556    0.560      0.529    0.908     0.432     french
-0.623    0.007    0.768      0.623    0.688      0.681    0.951     0.598     japanese
-0.865    0.022    0.883      0.865    0.874      0.850    0.969     0.843     mexican
-0.732    0.028    0.730      0.732    0.729      0.705    0.943     0.648     Weighted Avg.
-```
--->
-
-<!--
-We only show the confusion matrix of SMO here since the matrices have the size $20 \times 20$.
-
-* Top-ing Method
-
-```
-a    b    c    d    e    f    g    h    i    j    k    l    m    n    o    p    q    r    s    t   <-- classified as
-85    2    0    3    6   17    1    3    1   12    0    0    1    4    0   30    1    3    4    0 |    a = brazilian
-3  105    0   12    1   29    0    3    1    8    2    0    3    4    2    8    1    2    4    1 |    b = jamaican
-0    1  197   25    6    7    6    0    0   15    1    0    1    0    0    7    1    2    1    0 |    c = moroccan
-2    5   30  873    3   15    3    4    2   23    2    1    9    2    1   21    1    0    9    7 |    d = indian
-7    0    7    5  162   10    3    3    0   82    1    3    3    2    0   34    0   10   26    1 |    e = spanish
-11    4    5   10    8 1103    4   14    7  100   12    9    0    5    0   40    0   57   77    5 |    f = southern_us
-0    0    3    9    9   11  270    1    1   75    1    2    0    0    0    6    2    1   13    0 |    g = greek
-1    3    1    5    6   69    3  103    1   19    3   19    0    1    0    2    0    1   43    1 |    h = british
-1    0    1   11    1   23    2    4  722   11    2    1   24   13   27   14   13    4    9   33 |    i = chinese
-5    3    5    8   32   83   33   11    5 2248    4    3    2    3    1   37    1   12  135    3 |    j = italian
-3    0    5    3    3   29    0   11    2   23   38    5    1    2    0    6    0    0   18    1 |    k = russian
-0    2    1    3    5   46    4   22    0   14    6   93    0    1    1    3    0    1   22    2 |    l = irish
-3    1    0   25    0    7    1    1   48    2    0    0  409   10    1    6   49    0    2    7 |    m = thai
-9    1    0    4    2   18    0    3   27   13    1    2    6  137    0    5    4    3    3    2 |    n = filipino
-0    0    0    1    1    2    0    0   25    5    2    0    3    2  192    5    1    0    1   13 |    o = korean
-7    3    6   15   25   95    8    2    7   61    0    0    6    5    1 1912    2   12   17    0 |    p = mexican
-4    0    5    7    1    9    0    0   27    4    0    0   49   10    3    4  125    0    0   10 |    q = vietnamese
-1    1    1    3    6   87    2    3    2   28    2    0    0    2    0   16    1  350   22    1 |    r = cajun_creole
-3    0    8    1   19   92   10   20    0  209   11   11    0    2    0   18    1    3  488    2 |    s = french
-4    2    1   50    0   20    1    1   62   16    4    1    3    8   10    3    4    1    7  306 |    t = japanese
-```
--->
-
+<!-- train_weka_top1000.csv 79.9M -->
+<!-- test_weka_top1000.csv 19.9M --> 
+<!-- train_weka_pca1000_len.csv 195.5M -->
+<!-- Top-ing - IBk(k=199):???(1) NB:62.6414 J48:???(2) SMO:72... -->
+<!-- PCA - IBk(k=199):
+<!-- PCA+len - SMO: -->
