@@ -90,7 +90,7 @@ There are five major steps of machine learning in this project.
 
 * **Visualization** - If we transform the training data into a sparse matrix full of $0$ and $1$ directly, the matrix will have the size of $39774 \times 6714$. To cope with this matrix more efficiently, we need **dimension reduction** to compress the size of matrix without losing too many varieties of data. **This step is the main difference between related work and our new method** which will be mentioned in the sections 2 \& 3.
 
-* **Modeling** - We chose **Weka** environment to create models. The detailed process of converting data matrix to the arff file for Weka environment will be mentioned also in the sections 2 \& 3. All the codes used in this project can be found in the GitHub.
+* **Modeling** - We chose **Weka** environment (see [[1]]) to create models. The detailed process of converting data matrix to the arff file for Weka environment will be mentioned also in the sections 2 \& 3. All the codes used in this project can be found in the GitHub.
 	* [https://github.com/alicia6174/Kaggle-Whats-Cooking](https://github.com/alicia6174/Kaggle-Whats-Cooking)
 
 	We skipped **tuning** in the experiments because we focused on comparing the results of two methods under different models.
@@ -163,7 +163,7 @@ The 1001th attribute in the file test\_weka\_top1000.arff needs to be modified t
 ## 3. New methods
 ### Descriptions of method
 
-* **Dimension reduction** - Our method adopted **PCA** which is a linear unsupervised reduction. First we collected the totally $6714$ ingredients as features and each data could be transformed into a $6714$-dimensional vector with the $i$th component being $1$ if its ingredients contain the $i$th feature and being $0$ if otherwise. In that way, we could create the training data matrix of size $39774 \times 6714$. Second we computed the eigenvalues and eigenvectors of the corresponding covariance matrix. Third we chose the number of reduced dimension to be $1000$ according to the score defined by
+* **Dimension reduction** - Our method adopted **PCA** which is a linear unsupervised reduction. First we collected the totally $6714$ ingredients as features and each data could be transformed into a $6714$-dimensional vector with the $i$th component being $1$ if its ingredients contain the $i$th feature and being $0$ if otherwise. In that way, we could create the training data matrix of size $39774 \times 6714$. Second we computed the eigenvalues and eigenvectors of the corresponding covariance matrix. Third we chose the number of reduced dimension to be $1000$ according to the score defined by (see [[2]])
 $$\textrm{Score}(k) = \frac{\sum_{i=1}^k \lambda_i}{\sum_{i=1}^{6714} \lambda_i}$$
 where $\lambda_i$s are the eigenvalues which satisfy $\lambda_1 \geq \lambda_2 \geq \ldots \geq \lambda_{6714}$. This grapf of score versus number of eigenvalues shows that $1000$ corresponds to the score of $90$.
 <center> <img src="./pictures/Score.pdf" width="80%" /> </center>
@@ -371,7 +371,7 @@ We explain the reasons of some choices at first.
 
 * We chose the number of features to be 1000 which has been explained in the section 3. On the other hand, we've tried 200 features for Top-ing method, but the result was not good. We've also tried 2000 features for PCA method, but our machines ran out of memory.
 * We chose the models IBk, Naïve Bayes, J48, and SMO for training since they works for multi-class classification problem as we mentioned in the introduction. We've ever tried OvR, OvO, and Multilayer Perceptron. We didn't wait for the results because they all costed over one day. We chose SMO for testing since it resulted in the highest correctness and Kappa statistic (see §4).
-* All the parameters in the models remained as the default except the number of nearest neighbors $k$ in IBk. We chose $k=199$ since the ideal value of $k$ is the root square of the number of training instances.
+* All the parameters in the models remained as the default except the number of nearest neighbors $k$ in IBk. We chose $k=199$ since one of the ideal values of $k$ is the root square of the number of training instances (see [[3]]).
 $$\sqrt{39774} \approx 199.43$$
 
 Now we discuss about the results of our experiments.
@@ -442,19 +442,17 @@ Formal steps.* Create a new csv data file (in a needed form).* Convert it to 
 ### How to use Automatic WekaVersion of AutoWeka.Sketch the steps.-->
 
 ## References
-<!--
-1. P. Hall *et al.* Choice of neighbor order in nearest-neighbor classification. *Ann. Stat.*, 36(5):2135-2152, 2008.
-[1]: https://arxiv.org/pdf/0810.5276.pdf 
--->
-<!--
-2. Y.-J. Lee, Y.-R. Yeh, and H.-K. Pao. Introduction to Support Vector Machines and Their Applications in Bankruptcy Prognosis. *Handbook of Computational Finance*, 731-761, 2012.
-[2]: https://link.springer.com/chapter/10.1007%2F978-3-642-17254-0_27
--->
-3. 袁梅宇. *王者歸來：WEKA機器學習與大數據聖經 3/e.* 佳魁資訊, 台北市, 2016.
-[3]: https://www.tenlong.com.tw/products/9789863794578 
+1. 袁梅宇. *王者歸來：WEKA機器學習與大數據聖經 3/e.* 佳魁資訊, 台北市, 2016.
+[1]: https://www.tenlong.com.tw/products/9789863794578 
+
+2. Principal component analysis (PCA) on data - MATLAB princomp.
+[2]: https://www.mathworks.com/help/stats/princomp.html
+
+3. A. B. Hassanat *et al.* Solving the problem of the K parameter in the KNN
+classifier using an ensemble learning approach. *IJCSIS*, 12(8):33-39, 2014.
+[3]: https://ai2-s2-pdfs.s3.amazonaws.com/e0c7/16aee8e5b960515d3928e84e07baa0fcb7aa.pdf
 
 <div style="page-break-after: always;"></div>
-
 
 <center>
 #Our highest Kaggle score ever!#
@@ -470,6 +468,5 @@ Formal steps.* Create a new csv data file (in a needed form).* Convert it to 
 
 <!-- §2,3. create\_eigVec.pl與create\_eigVal.pl檢查是否正確！-->
 <!-- §5.2. Add AUC and Confusion matrix?  -->
-<!-- §Ref. PCA Score, KNN's K -->
 <!-- 新的section新起一頁？ -->
 <!-- 目錄, 頁碼, 最高分數(test_weka_top1055_len_SMO重弄). -->
