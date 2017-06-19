@@ -355,7 +355,7 @@ All the training results from Weka can be found in the GitHub.
 * [https://github.com/alicia6174/Kaggle-Whats-Cooking/tree/master/train\_weka\_results](https://github.com/alicia6174/Kaggle-Whats-Cooking/tree/master/train_weka_results)
 
 ### Kaggle score
-The detailed process of testing are described in the sections 2 \& 3. The followings are the final results. The process of testing costed just several seconds, so we didn't put the running time here.
+The detailed process of testing are described in the sections 2 \& 3. The followings are the final results. The process of testing costed just several seconds, so we skip the running time here.
 
 * Top-ing Method **0.73994** 
 <center> <img src="./pictures/test_weka_top1000_SMO.png" width="90%" /> </center>
@@ -366,20 +366,39 @@ The detailed process of testing are described in the sections 2 \& 3. The follow
 We explain the reasons of some choices at first.
 
 * We chose the number of features to be 1000 which has been explained in the section 3. On the other hand, we've tried 200 features for Top-ing method, but the result was not good. We've also tried 2000 features for PCA method, but our machines ran out of memory.
-* We chose the models IBk, Naïve Bayes, J48, and SMO since they works for multi-class classification problem as we mentioned in the introduction. We've ever tried OvR, OvO, and Multilayer Perceptron. We didn't wait for the results because they all costed over one day.
+* We chose the models IBk, Naïve Bayes, J48, and SMO for training since they works for multi-class classification problem as we mentioned in the introduction. We've ever tried OvR, OvO, and Multilayer Perceptron. We didn't wait for the results because they all costed over one day. We chose SMO for testing since it resulted in the highest correctness and Kappa statistic (see §4).
 * All the parameters in the models remained as the default except the number of nearest neighbors $k$ in IBk. We chose $k=199$ since the ideal value of $k$ is the root square of the number of training instances.
 $$\sqrt{39774} \approx 199.43$$
 
 Now we discuss about the results of our experiments.
 
 * The file size of the training data of PCA method (187M) is almost twice larger than the one of Top-ing method (79.9M). This result is due to the reason we rounded the data values of PCA method to the second decimal. This observation also holds for testing data (48.7M vs. 19.9M).
-* The Top-ing method worked better than the PCA method. Why??? (Try to explain this in the aspect of the quantities in §4)
+* According to the evaluation, we expected that PCA method would have better predictions than Top-ing method since it resulted in the higher correctness as well as Kappa statistic and less running time (see §4). However, the Kaggle score showed the contrary result. It seemed that PCA method suffered from **overfitting** issue which may be derived from too less training data or too complicated model. Therefore, there are two possible solutions to solve it.
+	* Add more training instances
+	* Reduce the number of features 
 
-Finally, we end this project with some expectations and future work. 
+Finally, we end this project with some extra tried results and future work. 
+
+* We realized that the **length of ingredients** would also serve as a feature. We add this as the 1001th feature and the results are shown below. 
+The extra feature benefited the Top-ing method but made the PCA method worse. It made the overfitting more seriously. 
+
+<center>
+<table border="1" align="center">
+<tr align="center"> 
+<td></td> <td>**Top-ing method**</td> <td>**PCA method**</td> 
+</tr>
+<tr align="center"> 
+<td>**SMO correctness, $\%$**</td> <td>72.5727</td> <td>73.3343</td> 
+</tr>
+<tr align="center"> 
+<td>**Kaggle score**</td> <td>0.74185</td> <td>0.65809</td>
+</tr>
+</table>
+</center>
 
 * We actually made a KNN algorithm ourselves with the distance defined by
 $$d(x_i,x_j) =\; \textrm{number of different ingredients of $x_i$ and $x_j$}$$
-where $x_i$ means the $i$th training data. We dealt with the raw data directly and chose $k=21$ (chosen by tuning). This simple method created the better result than the one of PCA method.  
+where $x_i$ means the $i$th un-preprocessed training data. This distance can be computed by comparing strings. The simple code ``My_KNN.py`` can deal with the un-preprocessed json files and creat the submission csv file directly. It made the better result than the one of PCA method if we choose $k=21$.  
 	* My KNN **0.67659**
 <center> <img src="./pictures/My_KNN_K21.png" width="90%" /> </center>
 
@@ -399,13 +418,7 @@ Sketch the steps.
 Formal steps.* Create a new csv data file (in a needed form).* Convert it to UTF8 encoding. (use instruction in vim [A]).* Convert it into train and test arff files (Hsin’s shell-script [A]).* Train train.arff  by xxx on Weka, analyze the data (MAE, ROC…), and save xxx.model.* Test test.arff by the model, and save result_xxx.txt.* Convert result_xxx.txt to result_xxx.csv.
 
 
-### How to use Automatic WekaVersion of AutoWeka.Sketch the steps.
-### Detailed Accuracy By Class
-We only put the results of SMO here since SMO served as the bset model.
-
-### Confusion Matrix
-We only put the results of SMO here since SMO served as the bset model.
--->
+### How to use Automatic WekaVersion of AutoWeka.Sketch the steps.-->
 
 ## References
 <!--
@@ -421,7 +434,7 @@ We only put the results of SMO here since SMO served as the bset model.
 
 <!-- §1. Recheck. 把五大步驟裡的文章結構拿到外面寫. 加寫兩個方法的動機: Top ing. \& PCA (後面方法均改名為這樣不要叫新舊方法). -->
 <!-- §2,3. create\_eigVec.pl與create\_eigVal.pl檢查是否正確！-->
-<!-- §5. 5.1:Choices; 5.2:分析兩方法的結果與可能原因. 5.3:加上len結果. My KNN 加上計算距離的code，註明是用原始資料算. 需要找更有效的方法(future work). -->
+<!-- §5.2. Add AUC and Confusion matrix?  -->
 <!-- §Ref. PCA Score, KNN's K -->
 <!-- 新的section新起一頁？ -->
 <!-- 圖片(test_weka_top1055_len_SMO重弄), 目錄, 頁碼, 與插圖？ -->
