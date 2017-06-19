@@ -350,7 +350,7 @@ The Kappa statistic and MAE are shown in the following table. The results of AUC
 The detailed process of testing are described in the sections 2 \& 3. The followings are the final results.
 
 * Top-ing Method **0.73994** 
-<center> <img src="./pictures/test_weka_top1000_SMO.png" width="90%" /> </center>
+<center> <img src="./pictures/test_weka_top1000_SMO_1.png" width="90%" /> </center>
 * PCA Method **0.66020**
 <center> <img src="./pictures/test_weka_pca1000_SMO.png" width="90%" /> </center>
 
@@ -373,7 +373,7 @@ Finally, we end this project with some expectations and future work.
 $$d(x_i,x_j) =\; \textrm{number of different ingredients of $x_i$ and $x_j$}$$
 where $x_i$ means the $i$th training data. We dealt with the raw data directly and chose $k=21$ (chosen by tuning). This simple method created the better result than the one of PCA method.  
 	* My KNN **0.67659**
-<center> <img src="./pictures/My_KNN_K21.png" width="80%" /> </center>
+<center> <img src="./pictures/My_KNN_K21.png" width="90%" /> </center>
 You can find the code ``My_KNN.py`` also in the GitHub site.
 	* [https://github.com/alicia6174/Kaggle-Whats-Cooking](https://github.com/alicia6174/Kaggle-Whats-Cooking)
 
