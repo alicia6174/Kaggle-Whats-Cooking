@@ -60,11 +60,6 @@ After an initial step of statistics, some basic summaries about data are given b
 </table>
 </center>
 
-<!--
-| **Length of longest list of ingregients in training data** | **65** |
-| **Length of shortest list of ingregients in training data** | **1** |
--->
-
 The submission needs to be saved as a csv file of this form.
 
 <center>
@@ -95,16 +90,7 @@ There are five major steps of machine learning in this project.
 
 	We skipped **tuning** in the experiments because we focused on comparing the results of two methods under different models.
 
-<!--
-**AutoWeka** is a tool which provides the ideal model for any given data, but we didn't use it in this project since it cost too much time. 
-Can we use AutoWeka to do tuning? 
--->
-
 * **Evaluation** - We presented various quantitiest to evaluate different models in the section 4.  Finally, we gave the scores of our submissions on Kaggle site.
-
-<!--
-These evidences showed that our method works better than the old one.
--->
 
 * **Prediction** - We saved the best model depending on the evaluation and used it to predict the cuisine of each testing data. The process will be mentioned also in the sections 2 \& 3.
 
@@ -160,13 +146,15 @@ The 1001th attribute in the file test\_weka\_top1000.arff needed to be modified 
 
 * [https://github.com/alicia6174/Kaggle-Whats-Cooking/tree/master/submission\_files](https://github.com/alicia6174/Kaggle-Whats-Cooking/tree/master/submission_files)
 
+<div style="page-break-after: always;"></div>
+
 ## 3. New method -- PCA method
 ### Descriptions of method
 
 * **Dimension reduction** - Our method adopted **Principal Components Analysis (PCA)** which is a linear unsupervised reduction. First we collected the totally $6714$ ingredients as features and each data could be transformed into a $6714$-dimensional vector with the $i$th component being $1$ if its ingredients contain the $i$th feature and being $0$ if otherwise. In that way, we could create the training data matrix of size $39774 \times 6714$. Second we computed the eigenvalues and eigenvectors of the corresponding covariance matrix. Third we chose the number of reduced dimension to be $1000$ according to the score defined by (see [[2]])
 $$\textrm{Score}(k) = \frac{\sum_{i=1}^k \lambda_i}{\sum_{i=1}^{6714} \lambda_i}$$
 where $\lambda_i$s are the eigenvalues which satisfy $\lambda_1 \geq \lambda_2 \geq \ldots \geq \lambda_{6714}$. This graph of score versus number of eigenvalues shows that $1000$ corresponds to the score of $90$.
-<center> <img src="./pictures/Score.pdf" width="80%" /> </center>
+<center> <img src="./pictures/Score.pdf" width="70%" /> </center>
 Finally we multiplied the training data matrix by this matrix composed of the top $1000$ eigenvectors to obtain the reduced training data matrix. Each feature had been normalized and rounded to the second decimal.
 $$
 \begin{bmatrix}
@@ -214,6 +202,13 @@ The reduced training data matrix of size $39774 \times 1000$ (without the header
 <tr align="left"> <td>create\_eigVec.pl</td> <td>eigVec</td> <td>divide above file into eigVec and eigVal</td> </tr>
 <tr align="left"> <td>create\_eigVal.pl</td> <td>eigVal</td> <td>divide above file into eigVec and eigVal</td> </tr>
 <tr align="left"> <td>create\_pca_mtx.m</td> <td>train\_pca\_mtx\_1000.csv</td> <td>create the reduced training data matrix of size 39774 x 1000 by matrix mutiplication</td> </tr>
+</table>
+</center>
+
+<div style="page-break-after: always;"></div>
+
+<center>
+<table border="1" align="center">
 <tr align="left"> <td>create\_weka.py</td> <td>train\_weka\_pca1000.csv **(187M)**</td> <td>create the reduced training data for modeling </td> </tr>
 <tr align="left"> <td>weka-csv-arff.pl</td> <td>train\_weka\_pca1000.arff</td> <td>convert to arff file</td> </tr>
 <tr align="left"> <td>Weka</td> <td></td> <td>create models and make evaluations</td> </tr>
@@ -286,24 +281,6 @@ We split the training data into **66.0% for training and the remainder for testi
 </table>
 </center>
 
-<!--
-<tr align="center"> 
-<td>One-against-all</td> 
-<td>Have run 27.5hr <p> Give up</td> 
-<td>66.2797 <p> 12065.99</td> 
-</tr>
-<tr align="center"> 
-<td>One-against-one</td> 
-<td>Have run 27hr <p> Give up</td> 
-<td>Out of memory</td> 
-</tr>
-<tr align="center"> 
-<td>Multilayer Perceptron</td> 
-<td>Have run 27hr <p> Give up</td> 
-<td>Have run 30hr <p> Give up</td> 
-</tr>
--->
-
 We also focused on the quantities - Kappa statistic, MAE, AUC, and confusion matrix.
 	
 * **Kappa statistic** $K$ shows the difference between the classifier and stochastic classification, which is a decimal in $[0,1]$. $K=0$ means no difference while $K=1$ represents the classifier is totally different from the stochastic classification. Generally speaking, $K$ is proportional to AUC and correctness. Therefore, the closer $K$ approaches $1$ ($K \approx 1$), the better the result of the classifier is. 
@@ -362,9 +339,10 @@ All the training results including AUC and confusion matrix from Weka can be fou
 The detailed process of testing are described in the sections 2 \& 3. The followings are the final results. The process of testing costed just several seconds, so we skip the running time here.
 
 * Top-ing Method **0.73994** 
-<center> <img src="./pictures/test_weka_top1000_SMO.png" width="90%" /> </center>
+<center> <img src="./pictures/test_weka_top1000_SMO.png" width="70%" /> </center> 
+&nbsp; <p>
 * PCA Method **0.66020**
-<center> <img src="./pictures/test_weka_pca1000_SMO.png" width="90%" /> </center>
+<center> <img src="./pictures/test_weka_pca1000_SMO.png" width="70%" /> </center>
 
 ## 5. Discussion and conclusion
 We explain the reasons of some choices at first.
@@ -418,28 +396,7 @@ where $x_i$ means the $i$th un-preprocessed training data. This distance can be 
 </table>
 </center>
 
-<!--
-	* My KNN **0.67659**
-<center> <img src="./pictures/My_KNN_K21.png" width="90%" /> </center>
-
-	You can find the code ``My_KNN.py`` also in the GitHub site.
-	
-	* [https://github.com/alicia6174/Kaggle-Whats-Cooking](https://github.com/alicia6174/Kaggle-Whats-Cooking)
--->
-
 * This competition can be categorized as a **text mining** problem. The future work  would concentrate on **Compressed Sensing**, **Hidden Markov Model**, and **Latent Dirichlet Allocation**.
-
-<!--
-## Appendix
-### How to use Weka
-Sketch the steps.
-
-* Transform training data to a csv file. * Try several multi-class classifications and choose features (ex. #(ing.) for each cuisine). (Show the graph of feature distribution)* Compute the accuracy and cross validation.* Choose a model to test. ex. J48, KNN, PLA, Bayes...
-
-Formal steps.* Create a new csv data file (in a needed form).* Convert it to UTF8 encoding. (use instruction in vim [A]).* Convert it into train and test arff files (Hsin’s shell-script [A]).* Train train.arff  by xxx on Weka, analyze the data (MAE, ROC…), and save xxx.model.* Test test.arff by the model, and save result_xxx.txt.* Convert result_xxx.txt to result_xxx.csv.
-
-
-### How to use Automatic WekaVersion of AutoWeka.Sketch the steps.-->
 
 ## References
 1. 袁梅宇. *王者歸來：WEKA機器學習與大數據聖經 3/e.* 佳魁資訊, 台北市, 2016.
@@ -458,14 +415,18 @@ classifier using an ensemble learning approach. *IJCSIS*, 12(8):33-39, 2014.
 #Our highest Kaggle score ever!#
 </center>
 &nbsp; <p>
-<center> <img src="./pictures/test_weka_top1000_len_SMO.png" width="90%" /> </center>
+
+<center>
+Top-ing Method + 1055 top ingredients + length of ingredients **0.75030** 
+</center>
+<center> <img src="./pictures/test_weka_top1055_len_SMO.png" width="70%" /> </center>
 &nbsp; <p>
 &nbsp; <p>
 <center>
 #--The End--#
 </center>
+&nbsp; <p>
 <center> <img src="./pictures/Whats_cooking_2.png" width="30%" /> </center>
 
 <!-- §2,3. create\_eigVec.pl與create\_eigVal.pl檢查是否正確！-->
-<!-- 新的section新起一頁？ -->
-<!-- 最高分數(test_weka_top1055_len_SMO重弄), 頁碼, 目錄. -->
+<!-- 最高分數(test_weka_top1055_len_SMO重弄). -->
