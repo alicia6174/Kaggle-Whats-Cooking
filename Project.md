@@ -316,7 +316,7 @@ $$
 $$
 Therefore, the more dominated the diagonal is, the better the result of the classifier is.
 	
-The Kappa statistic and MAE are shown in the following table. The results of AUC  and confusion matrix can be found in the appendix.
+The Kappa statistic and MAE are shown in the following table. 
 
 <center>
 <table border="1" align="center">
@@ -354,7 +354,7 @@ The Kappa statistic and MAE are shown in the following table. The results of AUC
 </table>
 </center>
 
-All the training results from Weka can be found in the GitHub.
+All the training results including AUC and confusion matrix from Weka can be found in the GitHub.
 
 * [https://github.com/alicia6174/Kaggle-Whats-Cooking/tree/master/train\_weka\_results](https://github.com/alicia6174/Kaggle-Whats-Cooking/tree/master/train_weka_results)
 
@@ -369,15 +369,15 @@ The detailed process of testing are described in the sections 2 \& 3. The follow
 ## 5. Discussion and conclusion
 We explain the reasons of some choices at first.
 
-* We chose the number of features to be 1000 which has been explained in the section 3. On the other hand, we've tried 200 features for Top-ing method, but the result was not good. We've also tried 2000 features for PCA method, but our machines ran out of memory.
-* We chose the models IBk, Naïve Bayes, J48, and SMO for training since they works for multi-class classification problem as we mentioned in the introduction. We've ever tried OvR, OvO, and Multilayer Perceptron. We didn't wait for the results because they all costed over one day. We chose SMO for testing since it resulted in the highest correctness and Kappa statistic (see §4).
+* We chose the number of features to be **1000** which has been explained in the section 3. On the other hand, we've tried 200 features for Top-ing method, but the result was not good. We've also tried 2000 features for PCA method, but our machines ran out of memory.
+* We chose the models IBk, Naïve Bayes, J48, and SMO for training since they works for multi-class classification problem as we mentioned in the introduction. We've ever tried OvR, OvO, and Multilayer Perceptron. We didn't wait for the results because they all costed over one day. We chose **SMO** for testing since it resulted in the highest correctness, the highest Kappa statistic, the highest AUC, and the most diagonally dominant confusion matrix (see §4).
 * All the parameters in the models remained as the default except the number of nearest neighbors $k$ in IBk. We chose $k=199$ since one of the ideal values of $k$ is the root square of the number of training instances (see [[3]]).
 $$\sqrt{39774} \approx 199.43$$
 
 Now we discuss about the results of our experiments.
 
 * The file size of the training data of PCA method (187M) is almost twice larger than the one of Top-ing method (79.9M). This result is due to the reason we rounded the data values of PCA method to the second decimal. This observation also holds for testing data (48.7M vs. 19.9M).
-* According to the evaluation, we expected that PCA method would have better predictions than Top-ing method since it resulted in the higher correctness as well as Kappa statistic and less running time (see §4). However, the Kaggle score showed the contrary result. It seemed that PCA method suffered from **overfitting** issue which may be derived from too less training data or too complicated model. Therefore, there are two possible solutions to solve it.
+* According to the evaluation, we expected that PCA method would have better predictions than Top-ing method under the SMO model since it resulted in the higher correctness, the higher Kappa statistic, the higher AUC, the similarly diagonally dominant confusion matrix, and the less running time (see §4). However, the Kaggle score showed the contrary result. It seemed that PCA method suffered from **overfitting** issue which may be derived from too less training data or too complicated model. Therefore, there are two possible solutions to solve it.
 	* Add more training instances
 	* Reduce the number of features 
 
@@ -467,6 +467,5 @@ classifier using an ensemble learning approach. *IJCSIS*, 12(8):33-39, 2014.
 <center> <img src="./pictures/Whats_cooking_2.png" width="40%" /> </center>
 
 <!-- §2,3. create\_eigVec.pl與create\_eigVal.pl檢查是否正確！-->
-<!-- §5.2. Add AUC and Confusion matrix?  -->
 <!-- 新的section新起一頁？ -->
-<!-- 目錄, 頁碼, 最高分數(test_weka_top1055_len_SMO重弄). -->
+<!-- 最高分數(test_weka_top1055_len_SMO重弄), 頁碼, 目錄. -->
