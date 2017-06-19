@@ -5,7 +5,7 @@
 &nbsp; <p>
 &nbsp; <p>
 &nbsp; <p>
-<center> <img src="./pictures/Whats_cooking.png" width="50%" /> </center>
+<center> <img src="./pictures/Whats_cooking_1.png" width="50%" /> </center>
 &nbsp; <p>
 &nbsp; <p>
 &nbsp; <p>
@@ -79,7 +79,9 @@ The submission needs to be saved as a csv file of this form.
 Obviously, this competition is a **supervised problem** of **multi-class classification**. There are several kinds of applicable classifiers.
 
 * Transform to binary - **OvR** (one-against-all), **OvO** (one-against-one)* Extend from binary - **Naïve Bayes**, **KNN** (IBk), **Decision trees** (J48), **SVM** (SMO), **Neural networks** (Multilayer Perceptron)
-### The main steps of learning
+### The purpose of this project
+In this project, we focus on compairing two methods of dimension reduction. The first method is recommended by someone in the discussion list of Kaggle who saied that choosing the top ingredients which occur most frequently in the training data as features would have a good result. We call this method the **Top-ing method**. The second one is our new method which uses PCA to reduce the features. We call this method the **PCA method**.
+
 There are five major steps of machine learning in this project.
 
 * **Data analysis** - We started with **data preprocessing** by these initial process.
@@ -91,7 +93,7 @@ There are five major steps of machine learning in this project.
 * **Modeling** - We chose **Weka** environment to create models. The detailed process of converting data matrix to the arff file for Weka environment will be mentioned also in the sections 2 \& 3. All the codes used in this project can be found in the GitHub.
 	* [https://github.com/alicia6174/Kaggle-Whats-Cooking](https://github.com/alicia6174/Kaggle-Whats-Cooking)
 
-	We skipped **tuning** in this project because we focused on comparing the results of two methods under different models.
+	We skipped **tuning** in the experiments because we focused on comparing the results of two methods under different models.
 
 <!--
 **AutoWeka** is a tool which provides the ideal model for any given data, but we didn't use it in this project since it cost too much time. 
@@ -105,6 +107,8 @@ These evidences showed that our method works better than the old one.
 -->
 
 * **Prediction** - We saved the best model depending on the evaluation and used it to predict the cuisine of each testing data. The process will be mentioned also in the sections 2 \& 3.
+
+Finally, we gave some discussions and conclusions about the experiments and listed some future work in the section 5.
 
 ## 2. Related work
 ### Descriptions of method
@@ -318,8 +322,8 @@ The Kappa statistic and MAE are shown in the following table. The results of AUC
 <table border="1" align="center">
 <tr align="center"> 
 <td colspan="3" valign="center">
-**Kappa statistic** <p> 
-**Mean absolute error** 
+**Kappa Statistic** <p> 
+**Mean Absolute Error** 
 </td> 
 </tr>
 <tr align="center"> 
@@ -380,31 +384,48 @@ Now we discuss about the results of our experiments.
 Finally, we end this project with some extra tried results and future work. 
 
 * We realized that the **length of ingredients** would also serve as a feature. We add this as the 1001th feature and the results are shown below. 
-The extra feature benefited the Top-ing method but made the PCA method worse. It made the overfitting more seriously. 
+The extra feature benefited the Top-ing method but made the PCA method worse. It made the overfitting more seriously. You can find all the results in our GitHub.
 
 <center>
 <table border="1" align="center">
 <tr align="center"> 
-<td></td> <td>**Top-ing method**</td> <td>**PCA method**</td> 
+<td></td> <td>**Top-ing Method**</td> <td>**PCA Method**</td> 
 </tr>
 <tr align="center"> 
-<td>**SMO correctness, $\%$**</td> <td>72.5727</td> <td>73.3343</td> 
+<td>**SMO Correctness, $\%$**</td> <td>72.5727</td> <td>73.3343</td> 
 </tr>
 <tr align="center"> 
-<td>**Kaggle score**</td> <td>0.74185</td> <td>0.65809</td>
+<td>**Kaggle Score**</td> <td>0.74185</td> <td>0.65809</td>
 </tr>
 </table>
 </center>
 
 * We actually made a KNN algorithm ourselves with the distance defined by
 $$d(x_i,x_j) =\; \textrm{number of different ingredients of $x_i$ and $x_j$}$$
-where $x_i$ means the $i$th un-preprocessed training data. This distance can be computed by comparing strings. The simple code ``My_KNN.py`` can deal with the un-preprocessed json files and creat the submission csv file directly. It made the better result than the one of PCA method if we choose $k=21$.  
+where $x_i$ means the $i$th un-preprocessed training data. This distance can be computed by comparing strings. The simple code ``My_KNN.py`` can deal with the un-preprocessed json files and creat the submission csv file directly. It made the better result than the one of PCA method if we choose $k=21$. You can find the code ``My_KNN.py`` and the results also in our GitHub. 
+
+<center>
+<table border="1" align="center">
+<tr align="center"> 
+<td><p></td> <td>**My KNN**</td> <td>**PCA Method**</td> <td>**PCA Method**</td> 
+</tr>
+<tr align="center"> 
+<td>**Parameters**</td> <td>K=21</td> <td>1000 feat.</td> <td>1001 feat.</td> 
+</tr>
+<tr align="center"> 
+<td>**Kaggle Score**</td> <td>0.67659</td> <td>0.66020</td> <td>0.65809</td>
+</tr>
+</table>
+</center>
+
+<!--
 	* My KNN **0.67659**
 <center> <img src="./pictures/My_KNN_K21.png" width="90%" /> </center>
 
 	You can find the code ``My_KNN.py`` also in the GitHub site.
 	
 	* [https://github.com/alicia6174/Kaggle-Whats-Cooking](https://github.com/alicia6174/Kaggle-Whats-Cooking)
+-->
 
 * This competition can be categorized as a **text mining** problem. The future work  would concentrate on **Compressed Sensing**, **Hidden Markov Model**, and **Latent Dirichlet Allocation**.
 
@@ -432,9 +453,23 @@ Formal steps.* Create a new csv data file (in a needed form).* Convert it to 
 3. 袁梅宇. *王者歸來：WEKA機器學習與大數據聖經 3/e.* 佳魁資訊, 台北市, 2016.
 [3]: https://www.tenlong.com.tw/products/9789863794578 
 
-<!-- §1. Recheck. 把五大步驟裡的文章結構拿到外面寫. 加寫兩個方法的動機: Top ing. \& PCA (後面方法均改名為這樣不要叫新舊方法). -->
+<div style="page-break-after: always;"></div>
+
+
+<center>
+#Our highest Kaggle score ever!#
+</center>
+&nbsp; <p>
+<center> <img src="./pictures/test_weka_top1000_len_SMO.png" width="90%" /> </center>
+&nbsp; <p>
+&nbsp; <p>
+<center>
+#--The End--#
+</center>
+<center> <img src="./pictures/Whats_cooking_2.png" width="40%" /> </center>
+
 <!-- §2,3. create\_eigVec.pl與create\_eigVal.pl檢查是否正確！-->
 <!-- §5.2. Add AUC and Confusion matrix?  -->
 <!-- §Ref. PCA Score, KNN's K -->
 <!-- 新的section新起一頁？ -->
-<!-- 圖片(test_weka_top1055_len_SMO重弄), 目錄, 頁碼, 與插圖？ -->
+<!-- 目錄, 頁碼, 最高分數(test_weka_top1055_len_SMO重弄). -->
