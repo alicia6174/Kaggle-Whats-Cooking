@@ -29,7 +29,7 @@ The main issue of this competition is to classify lists of ingredients into corr
     "pepper", "purple onion", "seasoning", "garbanzo beans", "feta cheese crumbles" ]
 }
 ```
-And, each testing instance is represented in the format of JSON.
+And, each testing instance is represented in this format of JSON.
 
 ```python
 {
@@ -56,7 +56,7 @@ After an initial step of statistics, some basic summaries about data are given b
 <table border="1" align="center">
 <tr align="center"> <td>**Number of training instances**</td> <td>39774</td> </tr>
 <tr align="center"> <td>**Number of testing instances**</td> <td>9944</td> </tr>
-<tr align="center"> <td>**Total number of ingregients in training data**</td> <td>6714</td> </tr>
+<tr align="center"> <td>**Total number of ingredients in training data**</td> <td>6714</td> </tr>
 </table>
 </center>
 
@@ -88,9 +88,9 @@ There are five major steps of machine learning in this project.
 	* Delete these special characters: ç, è, é, ®, and ™.
 	* Convert all the strings into the type of UTF-8. 
 
-* **Visualization** - If we transform the training data into a sparse matrix full of $0$ and $1$ directly, the matrix will have the size of $39774 \times 6714$. To cope with this matrix more efficiently, we need **dimension reduction** to compress the size of matrix without losing too many varieties of data. **This step is the main difference between related work and our new method** which will be mentioned in the sections 2 \& 3.
+* **Visualization** - If we transform the training data into a sparse matrix full of $0$ and $1$ directly, the matrix will have the size of $39774 \times 6714$. To cope with this matrix more efficiently, we need **dimension reduction** to compress the size of matrix without losing too many varieties of data. **This step is the main difference between those two methods** which will be mentioned in the sections 2 \& 3.
 
-* **Modeling** - We chose **Weka** environment (see [[1]]) to create models. The detailed process of converting data matrix to the arff file for Weka environment will be mentioned also in the sections 2 \& 3. All the codes used in this project can be found in the GitHub.
+* **Modeling** - We chose **Weka environment** (see [[1]]) to create models. The detailed process of converting data matrix to the arff file for Weka environment will be mentioned also in the sections 2 \& 3. All the codes used in this project can be found in the GitHub.
 	* [https://github.com/alicia6174/Kaggle-Whats-Cooking](https://github.com/alicia6174/Kaggle-Whats-Cooking)
 
 	We skipped **tuning** in the experiments because we focused on comparing the results of two methods under different models.
@@ -110,10 +110,10 @@ These evidences showed that our method works better than the old one.
 
 Finally, we gave some discussions and conclusions about the experiments and listed some future work in the section 5.
 
-## 2. Related work
+## 2. Related work -- Top-ing method
 ### Descriptions of method
 
-* **Dimension reduction** - The old method collected the **top ingredients** which occur most frequently in the training data as the features. To compare with our method, we chose the number of features to be $1000$. In that way, each data could be transformed into a $1000$-dimensional vector with the $i$th component being $1$ if its ingredients contain the $i$th feature and being $0$ if otherwise. The training data matrix of size $39774 \times 1000$ (without the header and labels) had this form and was saved as a csv file.
+* **Dimension reduction** - The Top-ing method collected the **top ingredients** which occur most frequently in the training data as the features. To compare with the PCA method, we chose the number of features to be $1000$ (see §3). In that way, each data could be transformed into a $1000$-dimensional vector with the $i$th component being $1$ if its ingredients contain the $i$th feature and being $0$ if otherwise. The training data matrix of size $39774 \times 1000$ (without the header and labels) had this form and was saved as a csv file.
 
 <center>
 <table border="1" align="center">
@@ -156,16 +156,16 @@ Finally, we gave some discussions and conclusions about the experiments and list
 </table>
 </center>
 
-The 1001th attribute in the file test\_weka\_top1000.arff needs to be modified to the $20$ cuisines before testing. The submission file can be found in the GitHub.
+The 1001th attribute in the file test\_weka\_top1000.arff needed to be modified to the $20$ cuisines before testing. The submission file can be found in the GitHub.
 
 * [https://github.com/alicia6174/Kaggle-Whats-Cooking/tree/master/submission\_files](https://github.com/alicia6174/Kaggle-Whats-Cooking/tree/master/submission_files)
 
-## 3. New methods
+## 3. New method -- PCA method
 ### Descriptions of method
 
-* **Dimension reduction** - Our method adopted **PCA** which is a linear unsupervised reduction. First we collected the totally $6714$ ingredients as features and each data could be transformed into a $6714$-dimensional vector with the $i$th component being $1$ if its ingredients contain the $i$th feature and being $0$ if otherwise. In that way, we could create the training data matrix of size $39774 \times 6714$. Second we computed the eigenvalues and eigenvectors of the corresponding covariance matrix. Third we chose the number of reduced dimension to be $1000$ according to the score defined by (see [[2]])
+* **Dimension reduction** - Our method adopted **Principal Components Analysis (PCA)** which is a linear unsupervised reduction. First we collected the totally $6714$ ingredients as features and each data could be transformed into a $6714$-dimensional vector with the $i$th component being $1$ if its ingredients contain the $i$th feature and being $0$ if otherwise. In that way, we could create the training data matrix of size $39774 \times 6714$. Second we computed the eigenvalues and eigenvectors of the corresponding covariance matrix. Third we chose the number of reduced dimension to be $1000$ according to the score defined by (see [[2]])
 $$\textrm{Score}(k) = \frac{\sum_{i=1}^k \lambda_i}{\sum_{i=1}^{6714} \lambda_i}$$
-where $\lambda_i$s are the eigenvalues which satisfy $\lambda_1 \geq \lambda_2 \geq \ldots \geq \lambda_{6714}$. This grapf of score versus number of eigenvalues shows that $1000$ corresponds to the score of $90$.
+where $\lambda_i$s are the eigenvalues which satisfy $\lambda_1 \geq \lambda_2 \geq \ldots \geq \lambda_{6714}$. This graph of score versus number of eigenvalues shows that $1000$ corresponds to the score of $90$.
 <center> <img src="./pictures/Score.pdf" width="80%" /> </center>
 Finally we multiplied the training data matrix by this matrix composed of the top $1000$ eigenvectors to obtain the reduced training data matrix. Each feature had been normalized and rounded to the second decimal.
 $$
@@ -191,7 +191,7 @@ The reduced training data matrix of size $39774 \times 1000$ (without the header
 
 * **Modeling** - This step was conducted almost in the same way as in the section 2. The main difference was that **SMO** still served as the best model after evaluation (see §4).
 
-* **Prediction** - We conducted the same step of dimension reduction to obtain the reduced testing data matrix. The reduced testing data matrix of size $9944 \times 1000$ (without the header and labels) had this form and was saved as a csv file. The following steps was conducted in the same way as in the section 2.
+* **Prediction** - We used the same steps of dimension reduction to obtain the reduced testing data matrix. The reduced testing data matrix of size $9944 \times 1000$ (without the header and labels) had this form and was saved as a csv file. The rest steps was conducted in the same way as in the section 2.
 
 <center>
 <table border="1" align="center">
@@ -211,8 +211,8 @@ The reduced training data matrix of size $39774 \times 1000$ (without the header
 <tr align="left"> <td>create\_top\_ing.py</td> <td>ing.csv</td> <td>find all the 6714 ingredients</td> </tr>
 <tr align="left"> <td>create\_mtx.py</td> <td>train\_mtx.csv</td> <td>create the training data matrix of size 39774 x 6714</td> </tr>
 <tr align="left"> <td>do\_pca.cpp</td> <td>eigVal\_eiglVec</td> <td>find the PCs and eigenvalues of the above matrix</td> </tr>
-<tr align="left"> <td>create\_eigVec.pl</td> <td>eigVec</td> <td>divide the file eigVal\_eiglVec into eigVec and eigVal</td> </tr>
-<tr align="left"> <td>create\_eigVal.pl</td> <td>eigVal</td> <td>divide the file eigVal\_eiglVec into eigVec and eigVal</td> </tr>
+<tr align="left"> <td>create\_eigVec.pl</td> <td>eigVec</td> <td>divide above file into eigVec and eigVal</td> </tr>
+<tr align="left"> <td>create\_eigVal.pl</td> <td>eigVal</td> <td>divide above file into eigVec and eigVal</td> </tr>
 <tr align="left"> <td>create\_pca_mtx.m</td> <td>train\_pca\_mtx\_1000.csv</td> <td>create the reduced training data matrix of size 39774 x 1000 by matrix mutiplication</td> </tr>
 <tr align="left"> <td>create\_weka.py</td> <td>train\_weka\_pca1000.csv **(187M)**</td> <td>create the reduced training data for modeling </td> </tr>
 <tr align="left"> <td>weka-csv-arff.pl</td> <td>train\_weka\_pca1000.arff</td> <td>convert to arff file</td> </tr>
@@ -248,7 +248,7 @@ We used the ML tool **Weka Environment** with the version shown below. In this p
 * Java(TM) SE Runtime Environment (build 1.8.0_121-b13)
 * Java HotSpot(TM) 64-Bit Server VM (build 25.121-b13, mixed mode)
 
-We split the training data into **66.0% for training and the remainder for testing**. We didn't compute the k-fold cross-validation since the training data was too large. The correctness and the running time are shown in the table below. The running includes the time taken to build model and the time to test model on test split.
+We split the training data into **66.0% for training and the remainder for testing**. We didn't compute the k-fold cross-validation since the training data was too large. The correctness and the running time are shown in the table below. The running time includes the time taken to build model and the time to test model on test split.
 
 <center>
 <table border="1" align="center">
@@ -308,7 +308,7 @@ We also focused on the quantities - Kappa statistic, MAE, AUC, and confusion mat
 	
 * **Kappa statistic** $K$ shows the difference between the classifier and stochastic classification, which is a decimal in $[0,1]$. $K=0$ means no difference while $K=1$ represents the classifier is totally different from the stochastic classification. Generally speaking, $K$ is proportional to AUC and correctness. Therefore, the closer $K$ approaches $1$ ($K \approx 1$), the better the result of the classifier is. 
 * **Mean absolute error** is the average of absoluate error.
-$$ \textrm{MAE} = \frac{\sum_{i=1}^{9944}|e_i|}{9944} $$ 
+$$ \textrm{MAE} = \frac{\sum\limits_{i=1}^{n}|e_i|}{n} $$ 
 * **ROC Area** is the area under the ROC curve which is a decimal in $[0,1]$. The closer AUC approaches $1$ ($\textrm{AUC} \approx 1$), the better the result of the classifier is. For multi-class classification problem, we need to evaluate AUC for each class respectively. 
 * **Confusion Matrix** is the matrix defined by
 $$
@@ -371,7 +371,7 @@ We explain the reasons of some choices at first.
 
 * We chose the number of features to be **1000** which has been explained in the section 3. On the other hand, we've tried 200 features for Top-ing method, but the result was not good. We've also tried 2000 features for PCA method, but our machines ran out of memory.
 * We chose the models IBk, Naïve Bayes, J48, and SMO for training since they works for multi-class classification problem as we mentioned in the introduction. We've ever tried OvR, OvO, and Multilayer Perceptron. We didn't wait for the results because they all costed over one day. We chose **SMO** for testing since it resulted in the highest correctness, the highest Kappa statistic, the highest AUC, and the most diagonally dominant confusion matrix (see §4).
-* All the parameters in the models remained as the default except the number of nearest neighbors $k$ in IBk. We chose $k=199$ since one of the ideal values of $k$ is the root square of the number of training instances (see [[3]]).
+* All the parameters in the models remained as the default except the number of nearest neighbors $k$ in IBk. We chose **k=199** since one of the ideal values of $k$ is the root square of the number of training instances (see [[3]]).
 $$\sqrt{39774} \approx 199.43$$
 
 Now we discuss about the results of our experiments.
