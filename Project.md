@@ -421,7 +421,7 @@ We only put the results of SMO here since SMO served as the bset model.
 
 <!-- §1. Recheck. 把五大步驟裡的文章結構拿到外面寫. 加寫兩個方法的動機: Top ing. \& PCA (後面方法均改名為這樣不要叫新舊方法). -->
 <!-- §2,3. create\_eigVec.pl與create\_eigVal.pl檢查是否正確！-->
-<!-- §5. 加上len分數更高. My KNN 加上計算距離的code，註明是用原始資料算. 繼續多加特徵誒有意義，需要找更有效的方法(future work). -->
+<!-- §5. 5.1:Choices; 5.2:分析兩方法的結果與可能原因. 5.3:加上len結果. My KNN 加上計算距離的code，註明是用原始資料算. 需要找更有效的方法(future work). -->
 <!-- §Ref. PCA Score, KNN's K -->
 <!-- 新的section新起一頁？ -->
-<!-- 圖片(test_weka_top1000_SMO.png失效, test_weka_top1055_len_SMO重弄), 目錄, 頁碼, 與插圖？ -->
+<!-- 圖片(test_weka_top1055_len_SMO重弄), 目錄, 頁碼, 與插圖？ -->
