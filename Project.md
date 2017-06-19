@@ -152,7 +152,9 @@ These evidences showed that our method works better than the old one.
 </table>
 </center>
 
-The 1001th attribute in the file test\_weka\_top1000.arff needs to be modified to the $20$ cuisines before testing.
+The 1001th attribute in the file test\_weka\_top1000.arff needs to be modified to the $20$ cuisines before testing. The submission file can be found in the GitHub.
+
+* [https://github.com/alicia6174/Kaggle-Whats-Cooking/tree/master/submission\_files](https://github.com/alicia6174/Kaggle-Whats-Cooking/tree/master/submission_files)
 
 ## 3. New methods
 ### Descriptions of method
@@ -222,7 +224,9 @@ The reduced training data matrix of size $39774 \times 1000$ (without the header
 </table>
 </center>
 
-The 1001th attribute in the file test\_weka\_pca1000.arff needed to be modified to the 20 cuisines before testing.
+The 1001th attribute in the file test\_weka\_pca1000.arff needed to be modified to the 20 cuisines before testing. The submission file can be found in the GitHub.
+
+* [https://github.com/alicia6174/Kaggle-Whats-Cooking/tree/master/submission\_files](https://github.com/alicia6174/Kaggle-Whats-Cooking/tree/master/submission_files)
 
 ## 4. Comparison results
 ### Evaluation
@@ -346,8 +350,12 @@ The Kappa statistic and MAE are shown in the following table. The results of AUC
 </table>
 </center>
 
+All the training results from Weka can be found in the GitHub.
+
+* [https://github.com/alicia6174/Kaggle-Whats-Cooking/tree/master/train\_weka\_results](https://github.com/alicia6174/Kaggle-Whats-Cooking/tree/master/train_weka_results)
+
 ### Kaggle score
-The detailed process of testing are described in the sections 2 \& 3. The followings are the final results.
+The detailed process of testing are described in the sections 2 \& 3. The followings are the final results. The process of testing costed just several seconds, so we didn't put the running time here.
 
 * Top-ing Method **0.73994** 
 <center> <img src="./pictures/test_weka_top1000_SMO_1.png" width="90%" /> </center>
@@ -410,8 +418,8 @@ We only put the results of SMO here since SMO served as the bset model.
 [3]: https://www.tenlong.com.tw/products/9789863794578 
 
 <!-- §1. Recheck. 把五大步驟裡的文章結構拿到外面寫. 加寫兩個方法的動機: Top ing. \& PCA (後面方法均改名為這樣不要叫新舊方法). -->
-<!-- §2,3. create\_eigVec.pl與create\_eigVal.pl檢查是否正確！ 所有上傳檔(/submissions_files)均放在GitHub.-->
-<!-- §4. 所有Weka結果(/weka_train_results)均放在GitHub. -->
+<!-- §2,3. create\_eigVec.pl與create\_eigVal.pl檢查是否正確！-->
 <!-- §5. 加上len分數更高. My KNN 加上計算距離的code，註明是用原始資料算. 繼續多加特徵誒有意義，需要找更有效的方法(future work). -->
+<!-- §Ref. PCA Score, KNN's K -->
 <!-- 新的section新起一頁？ -->
-<!-- Ref(PCA Score, KNN's K), 目錄, 頁碼, 與插圖？ -->
+<!-- 圖片(test_weka_top1000_SMO), 目錄, 頁碼, 與插圖？ -->
