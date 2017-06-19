@@ -370,14 +370,14 @@ The detailed process of testing are described in the sections 2 \& 3. The follow
 We explain the reasons of some choices at first.
 
 * We chose the number of features to be **1000** which has been explained in the section 3. On the other hand, we've tried 200 features for Top-ing method, but the result was not good. We've also tried 2000 features for PCA method, but our machines ran out of memory.
-* We chose the models IBk, Naïve Bayes, J48, and SMO for training since they works for multi-class classification problem as we mentioned in the introduction. We've ever tried OvR, OvO, and Multilayer Perceptron. We didn't wait for the results because they all costed over one day. We chose **SMO** for testing since it resulted in the highest correctness, the highest Kappa statistic, the highest AUC, and the most diagonally dominant confusion matrix (see §4).
+* We chose the models IBk, Naïve Bayes, J48, and SMO for training since they works for multi-class classification problem as we mentioned in the introduction. We've ever tried OvR, OvO, and Multilayer Perceptron. We didn't wait for the results because they all costed over one day. We chose **SMO** for testing since it resulted in the highest correctness, the highest Kappa statistic, the highest AUC, and the most diagonally dominant confusion matrix (see §4 and GitHub).
 * All the parameters in the models remained as the default except the number of nearest neighbors $k$ in IBk. We chose **k=199** since one of the ideal values of $k$ is the root square of the number of training instances (see [[3]]).
 $$\sqrt{39774} \approx 199.43$$
 
 Now we discuss about the results of our experiments.
 
-* The file size of the training data of PCA method (187M) is almost twice larger than the one of Top-ing method (79.9M). This result is due to the reason we rounded the data values of PCA method to the second decimal. This observation also holds for testing data (48.7M vs. 19.9M).
-* According to the evaluation, we expected that PCA method would have better predictions than Top-ing method under the SMO model since it resulted in the higher correctness, the higher Kappa statistic, the higher AUC, the similarly diagonally dominant confusion matrix, and the less running time (see §4). However, the Kaggle score showed the contrary result. It seemed that PCA method suffered from **overfitting** issue which may be derived from too less training data or too complicated model. Therefore, there are two possible solutions to solve it.
+* The file size of the training data of PCA method (**187M**) is almost twice larger than the one of Top-ing method (**79.9M**). This result is due to the reason we rounded the data values of PCA method to the second decimal. This observation also holds for testing data (**48.7M** vs. **19.9M**).
+* According to the evaluation, we expected that PCA method would have better predictions than Top-ing method under the SMO model since it resulted in the higher correctness, the higher Kappa statistic, the higher AUC, the similarly diagonally dominant confusion matrix, and the less running time (see §4 and GitHub). However, the Kaggle score showed the contrary result. It seemed that PCA method suffered from **overfitting** issue which may be derived from too less training data or too complicated model. Therefore, there are two possible solutions to solve it.
 	* Add more training instances
 	* Reduce the number of features 
 
@@ -402,7 +402,7 @@ The extra feature benefited the Top-ing method but made the PCA method worse. It
 
 * We actually made a KNN algorithm ourselves with the distance defined by
 $$d(x_i,x_j) =\; \textrm{number of different ingredients of $x_i$ and $x_j$}$$
-where $x_i$ means the $i$th un-preprocessed training data. This distance can be computed by comparing strings. The simple code ``My_KNN.py`` can deal with the un-preprocessed json files and creat the submission csv file directly. It made the better result than the one of PCA method if we choose $k=21$. You can find the code ``My_KNN.py`` and the results also in our GitHub. 
+where $x_i$ means the $i$th un-preprocessed training data. This distance can be computed by comparing strings. The simple code ``My_KNN.py`` can deal with the un-preprocessed json files and creat the submission csv file directly. It made the better result than the one of PCA method if we chose $k=21$. You can find the code ``My_KNN.py`` and the results also in our GitHub. 
 
 <center>
 <table border="1" align="center">
@@ -464,7 +464,7 @@ classifier using an ensemble learning approach. *IJCSIS*, 12(8):33-39, 2014.
 <center>
 #--The End--#
 </center>
-<center> <img src="./pictures/Whats_cooking_2.png" width="40%" /> </center>
+<center> <img src="./pictures/Whats_cooking_2.png" width="30%" /> </center>
 
 <!-- §2,3. create\_eigVec.pl與create\_eigVal.pl檢查是否正確！-->
 <!-- 新的section新起一頁？ -->
