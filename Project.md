@@ -358,7 +358,7 @@ All the training results from Weka can be found in the GitHub.
 The detailed process of testing are described in the sections 2 \& 3. The followings are the final results. The process of testing costed just several seconds, so we didn't put the running time here.
 
 * Top-ing Method **0.73994** 
-<center> <img src="./pictures/test_weka_top1000_SMO_1.png" width="90%" /> </center>
+<center> <img src="./pictures/test_weka_top1000_SMO.png" width="90%" /> </center>
 * PCA Method **0.66020**
 <center> <img src="./pictures/test_weka_pca1000_SMO.png" width="90%" /> </center>
 
