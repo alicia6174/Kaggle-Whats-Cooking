@@ -382,7 +382,9 @@ $$d(x_i,x_j) =\; \textrm{number of different ingredients of $x_i$ and $x_j$}$$
 where $x_i$ means the $i$th training data. We dealt with the raw data directly and chose $k=21$ (chosen by tuning). This simple method created the better result than the one of PCA method.  
 	* My KNN **0.67659**
 <center> <img src="./pictures/My_KNN_K21.png" width="90%" /> </center>
-You can find the code ``My_KNN.py`` also in the GitHub site.
+
+	You can find the code ``My_KNN.py`` also in the GitHub site.
+	
 	* [https://github.com/alicia6174/Kaggle-Whats-Cooking](https://github.com/alicia6174/Kaggle-Whats-Cooking)
 
 * This competition can be categorized as a **text mining** problem. The future work  would concentrate on **Compressed Sensing**, **Hidden Markov Model**, and **Latent Dirichlet Allocation**.
@@ -422,4 +424,4 @@ We only put the results of SMO here since SMO served as the bset model.
 <!-- §5. 加上len分數更高. My KNN 加上計算距離的code，註明是用原始資料算. 繼續多加特徵誒有意義，需要找更有效的方法(future work). -->
 <!-- §Ref. PCA Score, KNN's K -->
 <!-- 新的section新起一頁？ -->
-<!-- 圖片(test_weka_top1000_SMO), 目錄, 頁碼, 與插圖？ -->
+<!-- 圖片(test_weka_top1000_SMO.png失效, test_weka_top1055_len_SMO重弄), 目錄, 頁碼, 與插圖？ -->
