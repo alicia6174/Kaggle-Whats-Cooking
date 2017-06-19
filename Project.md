@@ -412,7 +412,7 @@ classifier using an ensemble learning approach. *IJCSIS*, 12(8):33-39, 2014.
 <div style="page-break-after: always;"></div>
 
 <center>
-#Our highest Kaggle score ever!#
+#Our Highest Kaggle Score Ever!#
 </center>
 &nbsp; <p>
 
