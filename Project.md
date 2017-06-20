@@ -417,9 +417,9 @@ classifier using an ensemble learning approach. *IJCSIS*, 12(8):33-39, 2014.
 &nbsp; <p>
 
 <center>
-Top-ing Method + 1055 top ingredients + length of ingredients **0.75030** 
+Top-ing Method + 1500 top ingredients + length of ingredients **0.75503** 
 </center>
-<center> <img src="./pictures/test_weka_top1055_len_SMO.png" width="70%" /> </center>
+<center> <img src="./pictures/test_weka_top1500_len_SMO.png" width="70%" /> </center>
 &nbsp; <p>
 &nbsp; <p>
 <center>
@@ -429,4 +429,3 @@ Top-ing Method + 1055 top ingredients + length of ingredients **0.75030**
 <center> <img src="./pictures/Whats_cooking_2.png" width="30%" /> </center>
 
 <!-- §2,3. create\_eigVec.pl與create\_eigVal.pl檢查是否正確！-->
-<!-- 最高分數(test_weka_top1055_len_SMO重弄). -->
