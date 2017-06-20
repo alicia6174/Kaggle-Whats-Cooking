@@ -130,12 +130,12 @@ Finally, we gave some discussions and conclusions about the experiments and list
 <tr align="left"> <td>**Codes \& ML Tool**</td> <td>**Created files**</td> <td>**Goals**</td> </tr>
 <tr align="left"> <td>prefix\_filter</td> <td>train.json</td> <td>delete special characters</td> </tr>
 <tr align="left"> <td>create\_top\_ing.py</td> <td>ing\_top1000.csv</td> <td>find top 1000 ingredietns</td> </tr>
-<tr align="left"> <td>create_weka.py</td> <td>train\_weka\_top1000.csv **(79.9M)**</td> <td>create the reduced training data for modeling</td> </tr>
+<tr align="left"> <td>create\_mtx.py</td> <td>train\_weka\_top1000.csv **(79.9M)**</td> <td>create the reduced training data for modeling</td> </tr>
 <tr align="left"> <td>weka-csv-arff.pl</td> <td>train\_weka\_top1000.arff</td> <td>convert to arff file</td> </tr>
 <tr align="left"> <td>Weka</td> <td></td> <td>create models and make evaluations</td> </tr>
 <tr align="left"> <td>Weka</td> <td>train\_weka\_top1000\_SMO.model</td> <td>create the model of SMO</td> </tr>
 <tr align="left"> <td>prefix\_filter</td> <td>test.json</td> <td>delete special characters</td> </tr>
-<tr align="left"> <td>create\_weka.py</td> <td>test\_weka\_top1000.csv **(19.9M)**</td> <td>create the reduced testing data for prediction</td> </tr>
+<tr align="left"> <td>create\_mtx.py</td> <td>test\_weka\_top1000.csv **(19.9M)**</td> <td>create the reduced testing data for prediction</td> </tr>
 <tr align="left"> <td>weka-csv-arff.pl</td> <td>test\_weka\_top1000.arff</td> <td>convert to arff file</td> </tr>
 <tr align="left"> <td>Weka</td> <td>test\_weka\_top1000\_SMO.txt</td> <td>make predictions</td> </tr>
 <tr align="left"> <td>weka-to-kaggle.pl</td> <td>test\_weka\_top1000\_SMO.csv</td> <td>create the submission file for Kaggle</td> </tr>
@@ -154,7 +154,7 @@ The 1001th attribute in the file test\_weka\_top1000.arff needed to be modified 
 * **Dimension reduction** - Our method adopted **Principal Components Analysis (PCA)** which is a linear unsupervised reduction. First we collected the totally $6714$ ingredients as features and each data could be transformed into a $6714$-dimensional vector with the $i$th component being $1$ if its ingredients contain the $i$th feature and being $0$ if otherwise. In that way, we could create the training data matrix of size $39774 \times 6714$. Second we computed the eigenvalues and eigenvectors of the corresponding covariance matrix. Third we chose the number of reduced dimension to be $1000$ according to the score defined by (see [[2]])
 $$\textrm{Score}(k) = \frac{\sum_{i=1}^k \lambda_i}{\sum_{i=1}^{6714} \lambda_i}$$
 where $\lambda_i$s are the eigenvalues which satisfy $\lambda_1 \geq \lambda_2 \geq \ldots \geq \lambda_{6714}$. This graph of score versus number of eigenvalues shows that $1000$ corresponds to the score of $90$.
-<center> <img src="./pictures/Score.pdf" width="70%" /> </center>
+<center> <img src="./pictures/PCA_score.png" width="70%" /> </center>
 Finally we multiplied the training data matrix by this matrix composed of the top $1000$ eigenvectors to obtain the reduced training data matrix. Each feature had been normalized and rounded to the second decimal.
 $$
 \begin{bmatrix}
